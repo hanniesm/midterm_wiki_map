@@ -1,0 +1,43 @@
+#
+
+users can see a list of the available maps because of ease of
+use and this gives them a way to start using the webapp.
+
+#
+
+users can view a map because they need to see where the pinpoints are.
+
+#
+
+a map can contain many points because there will be
+multiple points that they want to capture or checkout.
+
+#
+
+each point can have: a title, description, and image because
+users need this information to interpret the pinpoints.
+
+#
+
+authenticated users can create maps so that they can record new stuff and share them with
+other users and this authentification process would protect users' lists from "outsiders".
+
+#
+
+authenticated users can modify maps (add, edit, remove points) because we don't want static lists.
+
+#
+
+users can favourite a map because they might want to refer to it quickly and easily.
+
+#
+
+users have profiles, indicating their favourite maps and maps they've contributed to
+so that other users may easily view whatever that particular user has made.
+
+#
+
+use http://leafletjs.com/ or https://developers.google.com/maps/
+
+
+----

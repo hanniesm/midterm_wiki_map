@@ -22,21 +22,21 @@ function initMap() {
   // }
 }
 
-// function createListRow(listItem) {
-//   const $tableRow = $("<tr>").append(
-//     $("<td>").text(listItem.label),
-//     $("<td>").text(listItem.title)
-//   );
-//   return $tableRow;
-// }
+function createListRow(listItem) {
+  const $tableRow = $("<tr>").append(
+    $("<td>").text(listItem.label),
+    $("<td>").text(listItem.title)
+  );
+  return $tableRow;
+}
 
-// function renderList(data) {
-//   $("#testTable").empty();
-//   data.forEach(item => {
-//     let rendered = createListRow(item);
-//     $("#testTable").append(rendered);
-//   });
-// }
+function renderList(data) {
+  $("#testTable").empty();
+  data.forEach(item => {
+    let rendered = createListRow(item);
+    $("#testTable").append(rendered);
+  });
+}
 
 $(() => {
   // renderList(myArray);

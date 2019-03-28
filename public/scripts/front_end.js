@@ -3,21 +3,20 @@
 
 //Add event listener that will add/remove the list from the user's favorites and reload list so that it has correct star.
 
-$(document).ready(function(){
-  $( ".fas.fa-plus" ).on("click", function() {
-    console.log("create new map")
+$(document).ready(function() {
+  $(".fas.fa-plus").on("click", function() {
+    console.log("create new map");
   });
-  $( ".far.fa-star" ).on("click", function() {
-    console.log("add to favorites")
+  $(".far.fa-star").on("click", function() {
+    console.log("add to favorites");
   });
-  $( ".fas.fa-star" ).on("click", function() {
-    console.log("remove from favorites")
+  $(".fas.fa-star").on("click", function() {
+    console.log("remove from favorites");
   });
-  $( ".far.fa-edit" ).on("click", function() {
-    console.log("edit map")
+  $(".far.fa-edit").on("click", function() {
+    console.log("edit map");
   });
 });
-
 
 function renderLists(lists) {
   $("#accordion").empty();
@@ -25,36 +24,50 @@ function renderLists(lists) {
     const $list = createListElement(listObj);
     $("#accordion").append($list);
   }
-};
-
+}
 
 function createListElement(list) {
-//create card
+  //create card
   const $list = $("<div>").addClass("card");
   const $cardHeader = $("<div>").addClass("card-header");
   const $button = $("<div>").addClass("button");
 
-  $("<h2>").text(list.title).appendTo($button);
+  $("<h2>")
+    .text(list.title)
+    .appendTo($button);
   $button.appendTo($cardHeader);
 
   const $icons = $("<div>").addClass("icons");
 
-  $("<i>").addClass("far fa-star").appendTo($icons);
-  $("<i>").addClass("far fa-edit").appendTo($icons);
+  $("<i>")
+    .addClass("far fa-star")
+    .appendTo($icons);
+  $("<i>")
+    .addClass("far fa-edit")
+    .appendTo($icons);
 
   $icons.appendTo($cardHeader);
   $cardHeader.appendTo($list);
 
   const $cardBody = $("<div>").addClass("card-body");
 
-  $("<p>").attr("id", "description").text(list.description).appendTo($cardBody)
-  $("<p>").attr("id", "created_by").text(list.created_by).appendTo($cardBody)
-  $("<p>").attr("id", "collaborators").text(list.collaborators).appendTo($cardBody)
+  $("<p>")
+    .attr("id", "description")
+    .text(list.description)
+    .appendTo($cardBody);
+  $("<p>")
+    .attr("id", "created_by")
+    .text(list.created_by)
+    .appendTo($cardBody);
+  $("<p>")
+    .attr("id", "collaborators")
+    .text(list.collaborators)
+    .appendTo($cardBody);
 
-  $cardBody.appendTo($list)
+  $cardBody.appendTo($list);
 
   return $list;
-};
+}
 
 const request = (options, cb) => {
   $.ajax(options)
@@ -68,7 +81,7 @@ const request = (options, cb) => {
 
     .always(() => {
       console.log("Request completed");
-    })
+    });
 };
 
 const loadLists = () => {
@@ -78,11 +91,11 @@ const loadLists = () => {
     const requestOptions = {
       method: "GET",
       url: url,
-      dataType: "json",
+      dataType: "json"
     };
 
     request(requestOptions, function(response) {
-    renderTweets(response);
+      renderTweets(response);
     });
   });
 };

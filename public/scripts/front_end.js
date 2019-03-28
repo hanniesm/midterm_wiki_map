@@ -170,7 +170,6 @@ const loadLists = () => {
 loadLists();
 
 function infobox() {
-  $("#selected_pin").empty();
   let $div = $("<div>")
     .attr("id", "inputForms")
     .append(
@@ -212,4 +211,7 @@ function infobox() {
 
 $(document).ready(function() {
   infobox();
+  $("#selected_pin").on("click", function() {
+    $("#inputForms").slideToggle();
+  });
 });

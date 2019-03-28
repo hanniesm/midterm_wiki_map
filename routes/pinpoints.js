@@ -31,5 +31,26 @@ module.exports = knex => {
       });
     res.redirect("/");
   });
+
+  router.post("/delete", (req, res) => {
+    knex("pinpoints")
+      .where({ id: id })
+      .del();
+    res.redirect("/");
+  });
+
+  router.post("/modify", (req, res) => {
+    knex("pinpoints")
+      .where({ id: id })
+      .update({
+        title: req.body.title,
+        description: req.body.title,
+        image:
+          "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
+        latitude: req.body.latitude,
+        longitude: req.body.longitude
+      });
+  });
+
   return router;
 };

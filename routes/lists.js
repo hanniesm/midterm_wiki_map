@@ -13,5 +13,13 @@ module.exports = knex => {
       });
   });
 
+  router.post("/new", (req, res) => {
+    knex.insert({
+      title: req.body.title,
+      description: req.body.description,
+      created_by_id: req.body.id
+    });
+    res.redirect("/");
+  });
   return router;
 };

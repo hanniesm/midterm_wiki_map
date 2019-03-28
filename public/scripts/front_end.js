@@ -31,9 +31,9 @@ $(document).ready(function(){
   });
   $( "#accordion" ).on( "click", ".card", function(event) {
     $(this).find("button").removeClass("btn btn-link collapsed").addClass("btn btn-link").attr("aria-expanded", "true");
-    $(this).find("button").removeClass("btn btn-link collapsed").addClass("btn btn-link").attr("aria-expanded", "true");
-    console.log("collapse")
-  //Need to add
+    $(this).find(".collapse").toggleClass("collapse", "not-collapse");
+    $(this).find(".not-collapse").toggleClass("not-collapse", "collapse");
+  //Need to make it so they can close again.
   });
 });
 
@@ -78,6 +78,7 @@ function createListElement(list) {
 
   const $cardBodyData = $("<div>")
     .addClass("collapse")
+    .attr("id", "body")
     .attr("aria-labelledby", "headingTwo")
     .attr("data-parent", "#accordion")
   const $cardBody = $("<div>").addClass("card-body");

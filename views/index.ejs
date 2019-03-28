@@ -47,14 +47,35 @@
     </header>
     <main>
       <div id="listDisplay">
-        <form action="/api/pinpoints" method="POST">
-          Title: <input id="title" type="text" name="title" /><br />
-          Description:
-          <input id="description" type="text" name="description" /><br />
-          Latitude: <input id="latitude" type="text" name="latitude" /><br />
-          Longitude: <input id="longitude" type="text" name="longitude" /><br />
-          <input id="marker_adder" type="submit" value="Submit" />
-        </form>
+        <div id="inputForms">
+          <form action="/api/pinpoints" method="POST">
+            <input
+              id="title"
+              type="text"
+              placeholder="Title"
+              name="title"
+            /><br />
+            <input
+              id="description"
+              type="text"
+              placeholder="Description"
+              name="description"
+            /><br />
+            <input
+              id="latitude"
+              type="text"
+              placeholder="Latitude"
+              name="latitude"
+            /><br />
+            <input
+              id="longitude"
+              type="text"
+              placeholder="Longitude"
+              name="longitude"
+            /><br />
+            <input id="marker_adder" type="submit" value="Submit" />
+          </form>
+        </div>
       </div>
       <div id="map_pin">
         <div id="map"></div>

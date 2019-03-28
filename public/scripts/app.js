@@ -31,8 +31,6 @@ function initMap() {
     url: "/api/pinpoints"
   }).done(pinpoints => {
     for (var i = 0; i < pinpoints.length; i++) {
-      // com;
-      // if (pinpoints[i].list_id === 1) {
       markerArray.push({
         label: labelString[placedMarkerCounter],
         position: {

@@ -203,7 +203,6 @@ function infobox() {
             .attr("value", "Submit")
         )
     );
-  console.log($div);
   $("#selected_pin").append($div);
 }
 

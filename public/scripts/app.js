@@ -47,11 +47,6 @@ function initMap() {
         bounds.extend(marker.getPosition());
         map.fitBounds(bounds);
       }
-
-      $("<div>")
-        .text(pinpoints[i].title)
-        .appendTo($("#listDisplay"));
-      // }
     }
   });
 }

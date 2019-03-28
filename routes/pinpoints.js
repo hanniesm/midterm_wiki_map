@@ -9,7 +9,7 @@ module.exports = knex => {
     knex
       .select("*")
       .from("pinpoints")
-      // .where({ list_id })
+      .where({ list_id })
       .then(results => {
         res.json(results);
       });

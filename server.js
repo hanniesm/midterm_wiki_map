@@ -47,6 +47,7 @@ app.use("/api/pinpoints", pinpointsRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
+  console.log(req.body);
   res.render("index");
 });
 

@@ -2,29 +2,110 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: "Open Sans", sans-serif;
+
   header {
-    background-color: gray;
+    background-color: #00796b;
+    color: #ffffff;
     height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
     h1 {
-      color: #244751;
+      align-items: center;
+      padding: 10px;
     }
+    #profile {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+    }
+    p {
+      padding: 10px;
+      font-size: 1.5em;
+    }
+    #profile_photo {
+      width: 60px;
+      height: 60px;
+      align-items: center;
+      border-radius: 30px;
+    }
+  }
+
+  #explore {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .fas.fa-plus {
+    align-items: center;
+    padding: 10px;
+    font-size: 1.5em;
+  }
+
+  main {
+    display: flex;
+    margin: 40px;
+  }
+
+  #listDisplay {
+    border-right: 1px solid black;
+    width: 40%;
+    padding-right: 1em;
+  }
+
+  .card-header {
+    background-color: #009688;
+    border: #009688;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #icons {
+    color: #ffffff;
+    font-size: 1.4em;
+  }
+
+  .btn.btn-link {
+    color: #ffffff;
+    font-size: 1em;
+  }
+
+  #map_pin {
+    display: flex;
+    margin: 2em;
+  }
+
+  #selected_pin {
+    border: 1px solid black;
+    margin: 1em;
+    width: 30%;
+    border-radius: 0.5em;
+  }
+
+  #selected_pin_image {
+    width: 100%;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+  }
+
+  #pin_header {
+    display: flex;
+    justify-content: center;
+    height: 60px;
+  }
+
+  #pin_info {
+    margin: 1em;
   }
 
   #map {
     height: 500px;
-    width: 500px;
-    margin: 5em;
-    border: 1px solid black;
-    border-radius: 0.5em;
-  }
-  #listDisplay {
-    border-right: 1px solid black;
-  }
-
-  #testTable {
-    height: 500px;
-    width: 500px;
-    margin: 5em;
+    width: 70%;
+    margin: 1em;
     border: 1px solid black;
     border-radius: 0.5em;
   }

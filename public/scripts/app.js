@@ -56,7 +56,7 @@ function initMap() {
 $(document).ready(function() {
   // code snippet to add another pin and viewing it on the map
   $("#marker_adder").on("click", function() {
-    var testM = new google.maps.Marker({
+    var newMarker = new google.maps.Marker({
       position: {
         lat: $("#latitude").val(),
         lng: $("#longitude").val()
@@ -64,9 +64,9 @@ $(document).ready(function() {
       label: labelString[placedMarkerCounter]
     });
     placedMarkerCounter++;
-    markerArray.push(testM);
-    testM.setMap(map);
-    bounds.extend(testM.getPosition());
+    markerArray.push(newMarker);
+    newMarker.setMap(map);
+    bounds.extend(newMarker.getPosition());
     map.fitBounds(bounds);
   });
   // code snippet to remove a pin rezoom the map

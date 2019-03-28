@@ -18,6 +18,7 @@ const knexLogger = require("knex-logger");
 const usersRoutes = require("./routes/users");
 const listsRoutes = require("./routes/lists");
 const pinpointsRoutes = require("./routes/pinpoints");
+const favoritesRoutes = require("./routes/favorites");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -44,6 +45,7 @@ app.use(express.static("public"));
 app.use("/api/users", usersRoutes(knex));
 app.use("/api/lists", listsRoutes(knex));
 app.use("/api/pinpoints", pinpointsRoutes(knex));
+app.use("/api/favorites", favoritesRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {

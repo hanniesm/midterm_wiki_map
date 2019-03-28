@@ -19,10 +19,32 @@ $(document).ready(function() {
   });
 });
 
+
+$(document).ready(function(){
+  $("#favorite").on("click", function() {
+    event.preventDefault();
+    console.log("Button clicked, performing ajax call...");
+
+    // const data = $(this).serialize();
+
+    // const requestOptions = {
+    //   type: "POST",
+    //   url: "/tweets/",
+    //   data,
+    // };
+
+    // request(requestOptions, function(response) {
+    // //   loadTweets();
+    // });
+  });
+});
+
+
 $(document).ready(function() {
   $("#accordion").on("click", ".fa-star", function(event) {
     $(this).css({ color: "#FFC107" });
     console.log("add to favorites");
+
     //Need to add
   });
   $("#accordion").on("click", ".fa-edit", function(event) {
@@ -206,6 +228,7 @@ function infobox() {
   console.log($div);
   $("#selected_pin").append($div);
 }
+
 
 // infobox();
 

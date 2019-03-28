@@ -4,8 +4,9 @@
 //Add event listener that will add/remove the list from the user's favorites and reload list so that it has correct star.
 
 $(document).ready(function() {
+  $("#new-list").slideUp();
   $(".fas.fa-plus").on("click", function() {
-    console.log("create new map");
+    $("#new-list").slideToggle();
   });
   $(".far.fa-star").on("click", function() {
     console.log("add to favorites");

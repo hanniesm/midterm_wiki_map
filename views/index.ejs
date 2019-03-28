@@ -80,6 +80,21 @@
           <h2>Maps to explore</h2>
           <i class="fas fa-plus"></i>
         </div>
+        <div class="card" id="new-list" style="display:none">
+            <form action="/api/lists/" method="POST">
+              <input
+                class="new-list"
+                type="text"
+                placeholder="Title"
+                name="title"
+              /><br />
+              <input
+                class="new-list"
+                type="text"
+                placeholder="Description"
+                name="description"
+              /><br /><input class="new-list" id="new-list-submit" type="submit" value="Submit" />
+            </form></div>
         <!-- Need to add events to app.js to open and close the accordian -->
         <div id="accordion">
           <div class="card">

@@ -1,14 +1,16 @@
 const markerArray = [];
 const labelString = "ABCDEFGHIJKLMNOPQRSTUVYZ";
 let placedMarkerCounter = 0;
+let map;
+let bounds;
 
-// function createListRow(listItem) {
-//   const $tableRow = $("<tr>").append(
-//     $("<td>").text(listItem.label),
-//     $("<td>").text(listItem.title)
-//   );
-//   return $tableRow;
-// }
+function createListRow(listItem) {
+  const $tableRow = $("<tr>").append(
+    $("<td>").text(listItem.label),
+    $("<td>").text(listItem.title)
+  );
+  return $tableRow;
+}
 
 // function renderList(data) {
 //   $("#testTable").empty();
@@ -19,11 +21,11 @@ let placedMarkerCounter = 0;
 // }
 
 function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map"), {
     zoom: 4,
     center: { lat: 45.5017, lng: -73.5673 }
   });
-  let bounds = new google.maps.LatLngBounds();
+  bounds = new google.maps.LatLngBounds();
   $.ajax({
     method: "GET",
     url: "/api/pinpoints"
@@ -41,9 +43,9 @@ function initMap() {
       for (var elem of markerArray) {
         var marker = new google.maps.Marker({
           position: elem.position,
-          label: elem.label,
-          map: map
+          label: elem.label
         });
+        marker.setMap(map);
         bounds.extend(marker.getPosition());
         map.fitBounds(bounds);
       }
@@ -51,4 +53,28 @@ function initMap() {
   });
 }
 
-$(document).ready({});
+$(document).ready(function() {
+  // code snippet to add another pin and viewing it on the map
+  $("#marker_adder").on("click", function() {
+    var testM = new google.maps.Marker({
+      position: {
+        lat: $("#latitude").val(),
+        lng: $("#longitude").val()
+      },
+      label: labelString[placedMarkerCounter]
+    });
+    placedMarkerCounter++;
+    markerArray.push(testM);
+    testM.setMap(map);
+    bounds.extend(testM.getPosition());
+    map.fitBounds(bounds);
+  });
+  // code snippet to remove a pin rezoom the map
+  $("#test2").on("click", function() {
+    markerArray[markerArray.length - 1].setMap(null);
+    markerArray.pop();
+    placedMarkerCounter--;
+    $("#map").empty();
+    initMap();
+  });
+});

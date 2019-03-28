@@ -2,6 +2,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans', sans-serif;
+
   header {
     background-color: #00796B;
     color: #FFFFFF;
@@ -31,6 +33,17 @@ body {
     }
   }
 
+  #explore {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .fas.fa-plus {
+    align-items: center;
+    padding: 10px;
+    font-size: 1.5em;
+  }
+
   main {
     display: flex;
     margin: 40px;
@@ -44,10 +57,19 @@ body {
     background-color: #009688;
     border: #009688;
     color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #icons {
+    color: #FFFFFF;
+    font-size: 1.4em;
   }
 
   .btn.btn-link {
     color: #FFFFFF;
+    font-size: 1em;
   }
 
   #map_pin {
@@ -57,13 +79,22 @@ body {
 
   #selected_pin {
     border: 1px solid black;
-    padding: 10px;
     margin: 1em;
     width: 30%;
   }
 
   #selected_pin_image {
-    width: 80%
+    width: 100%;
+  }
+
+  #pin_header {
+    display: flex;
+    justify-content: center;
+    height: 60px;
+  }
+
+  #pin_info {
+    margin: 1em;
   }
 
 

@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -14,40 +16,63 @@
 
   <body>
     <header>
-      <h1>Mimap</h1>
+      <h1>MiMap</h1>
       <div id="profile">
         <p>Someone</p>
-        <img id="profile_photo" src="https://journeypurebowlinggreen.com/wp-content/uploads/2018/05/placeholder-person.jpg">
+        <div class="dropdown">
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle"><img id="profile_photo" src="https://journeypurebowlinggreen.com/wp-content/uploads/2018/05/placeholder-person.jpg"> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+              <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
       </div>
     </header>
     <main>
       <div id="listDisplay">
-        <h2>Maps to explore</h2>
+        <div id="explore">
+          <h2>Maps to explore</h2>
+          <i class="fas fa-plus"></i>
+        </div>
         <!-- Need to add events to app.js to open and close the accordian -->
         <div id="accordion">
           <div class="card">
             <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Title 1
-                </button>
-              </h5>
+              <div id="button">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    I heart Harry Potter
+                  </button>
+                </h5>
+              </div>
+              <div id="icons">
+                <i class="far fa-star"></i>
+                <i class="far fa-edit"></i>
+              </div>
             </div>
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
-                <h5 id="description">Anim pariatur cliche reprehenderit</h5>
-                <h6 id="created_by">Created by</h6>
-                <h6 id="collaborators">Collaborators</h6>
+                <p id="description">Real life movie locations from Harry Potter</h5>
+                <p id="created_by">Created by Harry</p>
+                <p id="collaborators">Contributors:</p>
+                <ul>
+                  <li>Neil</li>
+                </ul>
               </div>
             </div>
           </div>
           <div class="card">
             <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  List 2
-                </button>
-              </h5>
+              <div id="button">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    My overseas holiday
+                  </button>
+                </h5>
+              </div>
+              <div id="icons">
+                <i class="fas fa-star"></i>
+                <i class="far fa-edit"></i>
+              </div>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
               <div class="card-body">
@@ -74,9 +99,11 @@
       <div id="map_pin">
         <div id="map"></div>
         <div id="selected_pin">
-          <header><h3>Title of selected pin</h3></header>
           <img id="selected_pin_image" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Hogwarts_model_studio_tour.jpg">
-          <p>Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro.</p>
+          <header id="pin_header"><h3>Title of selected pin</h3></header>
+          <div id="pin_info">
+            <p>Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro.</p>
+          </div>
         </div>
       </div>
     </main>

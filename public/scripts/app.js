@@ -12,13 +12,13 @@ function createListRow(listItem) {
   return $tableRow;
 }
 
-// function renderList(data) {
-//   $("#testTable").empty();
-//   data.forEach(item => {
-//     let rendered = createListRow(item);
-//     $("#testTable").append(rendered);
-//   });
-// }
+function renderList(data) {
+  $("#testTable").empty();
+  data.forEach(item => {
+    let rendered = createListRow(item);
+    $("#testTable").append(rendered);
+  });
+}
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {

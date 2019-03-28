@@ -31,6 +31,10 @@ body {
       align-items: center;
       border-radius: 30px;
     }
+
+    a {
+      color: #00796B;
+    }
   }
 
   #explore {
@@ -99,7 +103,6 @@ body {
   #pin_header {
     display: flex;
     justify-content: center;
-    height: 60px;
   }
 
   #pin_info {
@@ -114,3 +117,5 @@ body {
     border-radius: 0.5em;
   }
 }
+
+

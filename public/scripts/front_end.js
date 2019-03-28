@@ -168,3 +168,48 @@ const loadLists = () => {
 };
 
 loadLists();
+
+function infobox() {
+  $("#selected_pin").empty();
+  let $div = $("<div>")
+    .attr("id", "inputForms")
+    .append(
+      $("<form>")
+        .attr("action", "/api/pinpoints")
+        .attr("method", "POST")
+        .append(
+          $("<input>")
+            .attr("id", "title")
+            .attr("type", "text")
+            .attr("placeholder", "Title")
+            .attr("name", "title"),
+          $("<input>")
+            .attr("id", "description")
+            .attr("type", "text")
+            .attr("placeholder", "Description")
+            .attr("name", "description"),
+          $("<input>")
+            .attr("id", "latitude")
+            .attr("type", "text")
+            .attr("placeholder", "Latitude")
+            .attr("name", "latitude"),
+          $("<input>")
+            .attr("id", "longitude")
+            .attr("type", "text")
+            .attr("placeholder", "Longitude")
+            .attr("name", "longitude"),
+          $("<input>")
+            .attr("id", "marker_adder")
+            .attr("type", "submit")
+            .attr("value", "Submit")
+        )
+    );
+  console.log($div);
+  $("#selected_pin").append($div);
+}
+
+// infobox();
+
+$(document).ready(function() {
+  infobox();
+});

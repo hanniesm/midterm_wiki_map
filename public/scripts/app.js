@@ -1,7 +1,6 @@
-const thisArray = [];
-let map;
-const labelString = "ABCDEFGHIJKLMNOPQRSTUV";
-let counter = 0;
+const markerArray = [];
+const labelString = "ABCDEFGHIJKLMNOPQRSTUVYZ";
+let placedMarkerCounter = 0;
 
 // function createListRow(listItem) {
 //   const $tableRow = $("<tr>").append(
@@ -19,49 +18,40 @@ let counter = 0;
 //   });
 // }
 
-const myArray = [
-  { position: { lat: 45.558, lng: -73.5519 }, label: "A", title: "Olympic" },
-  {
-    position: { lat: 38.8718568, lng: -77.0562669 },
-    label: "B",
-    title: "Pentagon"
-  }
-];
-
 function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
+  const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 4,
     center: { lat: 45.5017, lng: -73.5673 }
   });
-  // const localCopy = thisArray;
-  // console.log("hey");
+  let bounds = new google.maps.LatLngBounds();
   $.ajax({
     method: "GET",
     url: "/api/pinpoints"
   }).done(pinpoints => {
     for (var i = 0; i < pinpoints.length; i++) {
-      if (pinpoints[i].list_id === 2) {
-        thisArray.push({
-          label: labelString[counter],
-          position: {
-            lat: pinpoints[i].latitude,
-            lng: pinpoints[i].longitude
-          }
-        });
-        counter++;
-        // labelString = labelString.slice(1, labelString.length);
-        for (var elem of thisArray) {
-          var marker = new google.maps.Marker({
-            position: elem.position,
-            label: elem.label,
-            map: map
-          });
+      // if (pinpoints[i].list_id === 1) {
+      markerArray.push({
+        label: labelString[placedMarkerCounter],
+        position: {
+          lat: pinpoints[i].latitude,
+          lng: pinpoints[i].longitude
         }
-
-        $("<div>")
-          .text(pinpoints[i].title)
-          .appendTo($("#listDisplay"));
+      });
+      placedMarkerCounter++;
+      for (var elem of markerArray) {
+        var marker = new google.maps.Marker({
+          position: elem.position,
+          label: elem.label,
+          map: map
+        });
+        bounds.extend(marker.getPosition());
+        map.fitBounds(bounds);
       }
+
+      $("<div>")
+        .text(pinpoints[i].title)
+        .appendTo($("#listDisplay"));
+      // }
     }
   });
 }

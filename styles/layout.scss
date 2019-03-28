@@ -2,11 +2,11 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 
   header {
-    background-color: #00796B;
-    color: #FFFFFF;
+    background-color: #00796b;
+    color: #ffffff;
     height: 100px;
     display: flex;
     align-items: center;
@@ -54,7 +54,9 @@ body {
   }
 
   #listDisplay {
-    width: 40%
+    border-right: 1px solid black;
+    width: 40%;
+    padding-right: 1em;
   }
 
   .card-header {
@@ -67,12 +69,12 @@ body {
   }
 
   #icons {
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 1.4em;
   }
 
   .btn.btn-link {
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 1em;
   }
 
@@ -85,10 +87,13 @@ body {
     border: 1px solid black;
     margin: 1em;
     width: 30%;
+    border-radius: 0.5em;
   }
 
   #selected_pin_image {
     width: 100%;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
   }
 
   #pin_header {
@@ -100,22 +105,10 @@ body {
     margin: 1em;
   }
 
-
   #map {
     height: 500px;
     width: 70%;
     margin: 1em;
-    border: 1px solid black;
-    border-radius: 0.5em;
-  }
-  #listDisplay {
-    border-right: 1px solid black;
-  }
-
-  #testTable {
-    height: 500px;
-    width: 500px;
-    margin: 5em;
     border: 1px solid black;
     border-radius: 0.5em;
   }

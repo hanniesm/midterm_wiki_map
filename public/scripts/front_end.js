@@ -85,10 +85,10 @@ function createListElement(list) {
 
   $("<button>")
     .addClass("btn btn-link collapsed")
-    .attr("data-toggle", "collapse")
-    .attr("data-target", "#collapseTwo")
-    .attr("aria-expanded", "false")
-    .attr("aria-controls", "collapseTwo")
+    // .attr("data-toggle", "collapse")
+    // .attr("data-target", "#collapseTwo")
+    // .attr("aria-expanded", "false")
+    // .attr("aria-controls", "collapseTwo")
     .text(list.title)
     .appendTo($h);
 
@@ -109,27 +109,27 @@ function createListElement(list) {
   $icons.appendTo($cardHeader);
   $cardHeader.appendTo($list);
 
-  const $cardBodyData = $("<div>")
-    .addClass("collapse")
-    .attr("aria-labelledby", "headingTwo")
-    .attr("data-parent", "#accordion");
-  const $cardBody = $("<div>").addClass("card-body");
+  // const $cardBodyData = $("<div>")
+  //   // .addClass("collapse")
+  //   // .attr("aria-labelledby", "headingTwo")
+  //   // .attr("data-parent", "#accordion");
+  // const $cardBody = $("<div>").addClass("card-body");
 
-  $("<p>")
-    .attr("id", "description")
-    .text(list.description)
-    .appendTo($cardBody);
-  $("<p>")
-    .attr("id", "created_by")
-    .text(list.created_by_id)
-    .appendTo($cardBody);
-  $("<p>")
-    .attr("id", "collaborators")
-    .text(list.collaborators)
-    .appendTo($cardBody);
+  // $("<p>")
+  //   .attr("id", "description")
+  //   .text(list.description)
+  //   .appendTo($cardBody);
+  // $("<p>")
+  //   .attr("id", "created_by")
+  //   .text(list.created_by_id)
+  //   .appendTo($cardBody);
+  // $("<p>")
+  //   .attr("id", "collaborators")
+  //   .text(list.collaborators)
+  //   .appendTo($cardBody);
 
-  $cardBody.appendTo($cardBodyData);
-  $cardBodyData.appendTo($list);
+  // $cardBody.appendTo($cardBodyData);
+  // $cardBodyData.appendTo($list);
 
   return $list;
 }

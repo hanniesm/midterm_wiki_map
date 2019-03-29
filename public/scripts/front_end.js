@@ -102,9 +102,9 @@ function createListElement(list) {
     .addClass("far fa-star")
     .attr("id", "favorite")
     .appendTo($icons);
-  $("<i>")
-    .addClass("far fa-edit")
-    .appendTo($icons);
+  // $("<i>")
+  //   .addClass("far fa-edit")
+  //   .appendTo($icons);
 
   $icons.appendTo($cardHeader);
   $cardHeader.appendTo($list);

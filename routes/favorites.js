@@ -16,8 +16,8 @@ module.exports = knex => {
   router.post("/", (req, res) => {
     knex("favorites")
       .insert({
-        list_id: "1"
-        user_id: "3"
+        list_id: "1",
+        user_id: "2"
       })
       .then(result => {
         console.log(result);

@@ -13,6 +13,27 @@ module.exports = knex => {
       });
   });
 
+  router.get("/:id", (req, res) => {
+    knex
+      .select("*")
+      .from("lists")
+      .where({ id: req.params.id })
+      .then(results => {
+        res.json(results);
+      });
+  });
+
+  router.get("/:id/pinpoints", (req, res) => {
+    const myID = parseInt(req.params.id);
+    knex
+      .select("*")
+      .from("pinpoints")
+      .where({ list_id: myID })
+      .then(results => {
+        res.json(results);
+      });
+  });
+
   router.post("/", (req, res) => {
     knex("lists")
       .insert({

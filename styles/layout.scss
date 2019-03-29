@@ -37,6 +37,11 @@ body {
     }
   }
 
+  tr {
+    display: flex;
+    justify-content: space-between;
+  }
+
   #explore {
     display: flex;
     justify-content: space-between;
@@ -85,7 +90,10 @@ body {
   .selected_list {
     margin: 1em;
     width: 100%;
-    display: block;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    border: 1px solid;
   }
 
   #map_pin {

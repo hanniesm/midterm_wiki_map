@@ -87,6 +87,14 @@ body {
     margin: 2em;
   }
 
+  .selected_list {
+    border: 1px solid black;
+    margin: 1em;
+    width: 100%;
+    display: block;
+    border-radius: 0.5em;
+  }
+
   .selected_pin {
     border: 1px solid black;
     margin: 1em;

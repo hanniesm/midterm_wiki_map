@@ -83,9 +83,38 @@ body {
   }
 
   .selected_list {
-    margin: 1em;
+    border: 1px solid black;
+    margin-left: 1em;
     width: 100%;
-    display: block;
+    display: flex;
+    height: 80px;
+    border-radius: 0.5em;
+    #list_header {
+      width: 30%;
+      height: 100%;
+    }
+    #list_info {
+      width: 30%;
+      height: 100%;
+    }
+    #created_by {
+      width: 10%;
+      height: 100%;
+    }
+    #collaborators {
+      width: 10%;
+      height: 100%;
+    }
+    #button_area {
+      width: 20%;
+    }
+    .list_buttons {
+      background-color: #009688;
+      color: #ffffff;
+      text-align: center;
+      border-radius: 0.5em;
+      width: 7%;
+    }
   }
 
   #map_pin {
@@ -95,7 +124,7 @@ body {
   }
 
   .display {
-    width: 100%
+    width: 100%;
   }
 
   #map {
@@ -105,7 +134,6 @@ body {
     border: 1px solid black;
     border-radius: 0.5em;
   }
-
 
   #pinList {
     width: 30%;

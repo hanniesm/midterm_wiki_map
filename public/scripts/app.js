@@ -20,6 +20,19 @@ function renderList(data) {
   });
 }
 
+function renderPins(pins) {
+  $("#pinList").empty();
+  for (const pinObj of pins) {
+    const $pin = createPinList(pinObj);
+    $("#pinList").append($pin);
+  }
+}
+
+function createPinList(pin) {
+  const $pin = $("<p>").text(pin.title)
+  return $pin;
+}
+
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 4,
@@ -30,6 +43,7 @@ function initMap() {
     method: "GET",
     url: "/api/pinpoints"
   }).done(pinpoints => {
+    renderPins(pinpoints);
     for (var i = 0; i < pinpoints.length; i++) {
       markerArray.push({
         label: labelString[placedMarkerCounter],

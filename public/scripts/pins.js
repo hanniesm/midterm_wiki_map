@@ -19,26 +19,9 @@ function createPinElement(id) {
   return $pin;
 }
 
-// Need to add a get and route for particular pin
-
-
-// List of pins
-function renderPins(pins) {
-  $("#pinList").empty();
-  for (const pinObj of pins) {
-    const $pin = createPinList(pinObj);
-    $("#pinList").append($pin);
-  }
-}
-
-function createPinList(pin) {
-  const $pin = $("<p>").text(pin.title)
-  return $pin;
-}
-
 const loadPins = () => {
   $(document).ready(function() {
-    const url = "/api/pinpoints";
+    const url = "/api/pinpoints/:id";
 
     const requestOptions = {
       method: "GET",
@@ -48,9 +31,11 @@ const loadPins = () => {
 
     request(requestOptions, function(response) {
       // console.log(response)
-      renderPins(response);
+      printPin(response);
     });
   });
 };
 
-/loadPins();
+
+
+// loadPins();

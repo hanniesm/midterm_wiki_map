@@ -94,8 +94,8 @@ $(document).ready(function() {
       url: myURL
     })
       .done(results => {
-        $("#pin_header").text(results[0].title);
-        $("#pin_info").text(results[0].description);
+        $("#list_header").text(results[0].title);
+        $("#list_info").text(results[0].description);
       })
       .then(function() {
         for (var marker of markerArray) {

@@ -41,18 +41,16 @@ function initMap() {
   bounds = new google.maps.LatLngBounds();
   $.ajax({
     method: "GET",
-    url: "/api/pinpoints"
+    url: "/api/lists/1/pinpoints"
   }).done(pinpoints => {
-    renderPins(pinpoints);
+    // renderPins(pinpoints);
     for (var i = 0; i < pinpoints.length; i++) {
       markerArray.push({
-        label: labelString[placedMarkerCounter],
         position: {
           lat: pinpoints[i].latitude,
           lng: pinpoints[i].longitude
         }
       });
-      placedMarkerCounter++;
       for (var elem of markerArray) {
         var marker = new google.maps.Marker({
           position: elem.position,
@@ -73,19 +71,13 @@ $(document).ready(function() {
       position: {
         lat: $("#latitude").val(),
         lng: $("#longitude").val()
-      },
-      label: labelString[placedMarkerCounter]
+      }
     });
-    placedMarkerCounter++;
     markerArray.push(newMarker);
     newMarker.setMap(map);
     bounds.extend(newMarker.getPosition());
     map.fitBounds(bounds);
   });
-  // $(".card").on("click", function(e) {
-  //   const myID = event.target.data("id");
-  //   console.log(myID);
-  // });
   $("#accordion").on("click", ".card", function(event) {
     const myID = this.id;
     const myURL = "/api/lists/" + myID;
@@ -104,8 +96,21 @@ $(document).ready(function() {
           url: myPinpoints
         }).then(results => {
           const listPinpoints = results;
+          $("#pin_info").empty();
+          initMap();
+          markerArray = [];
           for (var point of listPinpoints) {
-            $("#list_info").append($("<div>").text(point.title));
+            var newMarker = new google.maps.Marker({
+              position: {
+                lat: point.latitude,
+                lng: point.longitude
+              }
+            });
+            markerArray.push(newMarker);
+            newMarker.setMap(map);
+            bounds.extend(newMarker.getPosition());
+            map.fitBounds(bounds);
+            $("#pin_info").append($("<ol>").text(point.title));
           }
         })
       );

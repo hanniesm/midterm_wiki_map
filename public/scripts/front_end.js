@@ -168,6 +168,23 @@ const loadLists = () => {
 
 loadLists();
 
+
+const getFavorites = (userid) => {
+
+  const url = "/api/users/" + userid + "/favorites";
+    const requestOptions = {
+      method: "GET",
+      url: url,
+      dataType: "json"
+    };
+
+    request(requestOptions, function(response) {
+      console.log(response)
+    });
+};
+
+getFavorites(1)
+
 function infobox() {
   let $div = $("<div>")
     .attr("id", "inputForms")

@@ -1,6 +1,6 @@
 let markerArray = [];
-const labelString = "ABCDEFGHIJKLMNOPQRSTUVYZ";
-let placedMarkerCounter = 0;
+// const labelString = "ABCDEFGHIJKLMNOPQRSTUVYZ";
+// let placedMarkerCounter = 0;
 let map;
 let bounds;
 

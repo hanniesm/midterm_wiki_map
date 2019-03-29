@@ -110,7 +110,16 @@ $(document).ready(function() {
             newMarker.setMap(map);
             bounds.extend(newMarker.getPosition());
             map.fitBounds(bounds);
-            $("#pin_info").append($("<ol>").text(point.title));
+            $("#pin_info").append(
+              $("<tr>").append(
+                $("<td>")
+                  .addClass("row_title")
+                  .text(point.title),
+                $("<td>")
+                  .addClass("row_description")
+                  .text(point.description)
+              )
+            );
           }
         })
       );

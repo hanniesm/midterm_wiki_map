@@ -52,6 +52,44 @@ function pinPlacer(pinpoints) {
   }
 }
 
+function printPin(pin) {
+  $("#selected_pin").empty();
+    const $pin = createPinElement(pin);
+    $("#selected_pin").append($pin);
+    // console.log($pin)
+}
+
+//create pin
+function createPinElement(pin) {
+  const $pinObject = pin[0];
+
+  const $pin = $("<div>").attr("id", $pinObject.id)
+  $("<img>").attr("id", "selected_pin_image").attr("src", $pinObject.image).appendTo($pin)
+  const $header = $("<header>").attr("id", "pin_header")
+  $("<h3>").text($pinObject.title).appendTo($header)
+  $header.appendTo($pin)
+  const $pinBody = $("<div>").attr("id", "pin_info")
+  $("<p>").text($pinObject.description).appendTo($pinBody)
+  $pinBody.appendTo($pin)
+
+  return $pin;
+}
+
+
+const loadPin = (id) => {
+    const url = "/api/pinpoints/" + id;
+    const requestOptions = {
+      method: "GET",
+      url: url,
+      dataType: "json"
+    };
+
+    request(requestOptions, function(response) {
+      // console.log(response)
+      printPin(response);
+    });
+};
+
 $(document).ready(function() {
   // code snippet to add another pin and viewing it on the map
   $("#marker_adder").on("click", function() {
@@ -87,7 +125,8 @@ $(document).ready(function() {
           url: myPinpoints
         }).then(results => {
           const listPinpoints = results;
-          $("#pin_info").empty();
+          $("#pinListInfo").empty();
+          initMap();
           markerArray = [];
           for (var point of listPinpoints) {
             var newMarker = new google.maps.Marker({
@@ -100,21 +139,24 @@ $(document).ready(function() {
             newMarker.setMap(map);
             bounds.extend(newMarker.getPosition());
             map.fitBounds(bounds);
+
             initMap();
             $("#pin_header").text("List items");
-            $("#pin_info").append(
+            // $("#pinListHeader").text("List items");
+            $("#pinListInfo").append(
               $("<tr>")
                 .addClass("list_row")
                 .append(
                   $("<td>")
                     .addClass("row_title")
-                    .text(point.title),
-                  $("<td>")
-                    .addClass("row_description")
-                    .text(point.description),
+                    .text(point.title)
+                    .attr("pinid", point.id),
+                  // $("<td>")
+                  //   .addClass("row_description")
+                  //   .text(point.description),
                   $("<td>").append(
                     $("<button>")
-                      .attr("id", point.id)
+                      .attr("pin-id", point.id)
                       .addClass("deleter")
                       .text("🗑")
                   )
@@ -127,6 +169,11 @@ $(document).ready(function() {
               .parent()
               .remove();
           });
+
+          $(".row_title").on("click", function(event) {
+              // console.log($(this).attr("pinid"));
+              loadPin($(this).attr("pinid"));
+          })
         })
       );
   });

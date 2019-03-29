@@ -61,7 +61,7 @@ $(document).ready(function() {
       .removeClass("btn btn-link collapsed")
       .addClass("btn btn-link")
       .attr("aria-expanded", "true");
-    console.log(this.id);
+    // console.log(this.id);
     //Need to add
   });
 });

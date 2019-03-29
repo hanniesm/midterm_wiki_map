@@ -1,4 +1,4 @@
-const markerArray = [];
+let markerArray = [];
 const labelString = "ABCDEFGHIJKLMNOPQRSTUVYZ";
 let placedMarkerCounter = 0;
 let map;
@@ -29,7 +29,7 @@ function renderPins(pins) {
 }
 
 function createPinList(pin) {
-  const $pin = $("<p>").text(pin.title)
+  const $pin = $("<p>").text(pin.title);
   return $pin;
 }
 
@@ -41,18 +41,16 @@ function initMap() {
   bounds = new google.maps.LatLngBounds();
   $.ajax({
     method: "GET",
-    url: "/api/pinpoints"
+    url: "/api/lists/1/pinpoints"
   }).done(pinpoints => {
-    renderPins(pinpoints);
+    // renderPins(pinpoints);
     for (var i = 0; i < pinpoints.length; i++) {
       markerArray.push({
-        label: labelString[placedMarkerCounter],
         position: {
           lat: pinpoints[i].latitude,
           lng: pinpoints[i].longitude
         }
       });
-      placedMarkerCounter++;
       for (var elem of markerArray) {
         var marker = new google.maps.Marker({
           position: elem.position,
@@ -73,38 +71,75 @@ $(document).ready(function() {
       position: {
         lat: $("#latitude").val(),
         lng: $("#longitude").val()
-      },
-      label: labelString[placedMarkerCounter]
+      }
     });
-    placedMarkerCounter++;
     markerArray.push(newMarker);
     newMarker.setMap(map);
     bounds.extend(newMarker.getPosition());
     map.fitBounds(bounds);
   });
-  $(".card").on("click", function(e) {
-    const myID = event.target.data("id");
-    console.log(myID);
-  });
   $("#accordion").on("click", ".card", function(event) {
     const myID = this.id;
     const myURL = "/api/lists/" + myID;
+    const myPinpoints = myURL + "/pinpoints";
     $.ajax({
       method: "GET",
       url: myURL
     })
-      .done(results => {
+      .then(results => {
         $("#list_header").text(results[0].title);
         $("#list_info").text(results[0].description);
       })
-      .then(function() {
-        for (var marker of markerArray) {
-          if (marker.list_id === 1) {
-            console.log(marker);
+      .then(
+        $.ajax({
+          method: "GET",
+          url: myPinpoints
+        }).then(results => {
+          const listPinpoints = results;
+          $("#pin_info").empty();
+          initMap();
+          markerArray = [];
+          for (var point of listPinpoints) {
+            var newMarker = new google.maps.Marker({
+              position: {
+                lat: point.latitude,
+                lng: point.longitude
+              }
+            });
+            markerArray.push(newMarker);
+            newMarker.setMap(map);
+            bounds.extend(newMarker.getPosition());
+            map.fitBounds(bounds);
+            $("#pin_header").text("List items");
+            $("#pin_info").append(
+              $("<tr>")
+                .addClass("list_row")
+                .append(
+                  $("<td>")
+                    .addClass("row_title")
+                    .text(point.title),
+                  $("<td>")
+                    .addClass("row_description")
+                    .text(point.description),
+                  $("<td>").append(
+                    $("<button>")
+                      .attr("id", point.id)
+                      .addClass("deleter")
+                      .text("🗑")
+                  )
+                )
+            );
           }
-        }
-      });
+          $("button").on("click", function(event) {
+            $(this)
+              .parent()
+              .parent()
+              .remove();
+          });
+        })
+      );
   });
+
   // code snippet to remove a pin rezoom the map
   $("#test2").on("click", function() {
     markerArray[markerArray.length - 1].setMap(null);

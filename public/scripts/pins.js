@@ -53,4 +53,4 @@ const loadPins = () => {
   });
 };
 
-// loadPins();
+/loadPins();

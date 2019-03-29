@@ -26,12 +26,14 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/front_end.js"></script>
+    <script type="text/javascript" src="/scripts/pins.js"></script>
   </head>
 
   <body>
     <header>
       <h1>MiMap</h1>
-      <div id="profile">
+  <!--When have login will dynamically add user_id to id  -->
+      <div class="profile" id="1">
         <p>Someone</p>
         <div class="dropdown">
           <a href="#" data-toggle="dropdown" class="dropdown-toggle"
@@ -48,7 +50,7 @@
     </header>
     <main>
       <div id="listDisplay">
-        
+
         <div id="explore">
           <h2>Maps to explore</h2>
           <i class="fas fa-plus"></i>
@@ -133,7 +135,7 @@
       </div>
       <div id="map_pin">
         <div id="map"></div>
-        <div id="selected_pin">
+        <div class="selected_pin" id="1">
           <img
             id="selected_pin_image"
             src="https://upload.wikimedia.org/wikipedia/commons/3/38/Hogwarts_model_studio_tour.jpg"
@@ -148,6 +150,7 @@
         </div>
       </div>
       <table id="testTable"></table>
+      <div id="pinList"></div>
     </main>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS805WJ6YM18KwZODbP70sT41MPwgZOzU&callback=initMap&libraries=places"

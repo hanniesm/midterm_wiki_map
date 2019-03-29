@@ -16,7 +16,7 @@ body {
       align-items: center;
       padding: 10px;
     }
-    #profile {
+    .profile {
       display: flex;
       align-items: center;
       padding: 10px;
@@ -87,7 +87,7 @@ body {
     margin: 2em;
   }
 
-  #selected_pin {
+  .selected_pin {
     border: 1px solid black;
     margin: 1em;
     width: 30%;

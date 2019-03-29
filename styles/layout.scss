@@ -57,7 +57,7 @@ body {
     }
   }
   .display {
-    display: flex;
+    display: block;
     width: 100%;
     .selected_list {
       margin: 1em;
@@ -97,6 +97,7 @@ body {
     margin: 1em;
     border: 1px solid black;
     border-radius: 0.5em;
+    display: flex;
   }
   .card-header {
     background-color: #009688;

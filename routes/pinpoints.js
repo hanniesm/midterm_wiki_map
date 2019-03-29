@@ -25,17 +25,6 @@ module.exports = knex => {
       });
   });
 
-  router.get("/list_id/:list_id", (req, res) => {
-    myID = req.params;
-    knex
-      .select("*")
-      .from("pinpoints")
-      .where({ list_id: req.params.list_id })
-      .then(results => {
-        res.json(results);
-      });
-  });
-
   router.post("/", (req, res) => {
     knex("pinpoints")
       .insert({

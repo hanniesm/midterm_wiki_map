@@ -13,5 +13,15 @@ module.exports = knex => {
       });
   });
 
+  router.get("/:id/lists", (req, res) => {
+    knex
+      .select("*")
+      .from("lists")
+      .where({ created_by_id: req.params.id })
+      .then(results => {
+        res.json(results);
+      });
+  });
+
   return router;
 };

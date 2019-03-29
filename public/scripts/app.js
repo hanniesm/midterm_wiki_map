@@ -110,20 +110,36 @@ $(document).ready(function() {
             newMarker.setMap(map);
             bounds.extend(newMarker.getPosition());
             map.fitBounds(bounds);
+            $("#pin_header").text("List items");
             $("#pin_info").append(
-              $("<tr>").append(
-                $("<td>")
-                  .addClass("row_title")
-                  .text(point.title),
-                $("<td>")
-                  .addClass("row_description")
-                  .text(point.description)
-              )
+              $("<tr>")
+                .addClass("list_row")
+                .append(
+                  $("<td>")
+                    .addClass("row_title")
+                    .text(point.title),
+                  $("<td>")
+                    .addClass("row_description")
+                    .text(point.description),
+                  $("<td>").append(
+                    $("<button>")
+                      .attr("id", point.id)
+                      .addClass("deleter")
+                      .text("🗑")
+                  )
+                )
             );
           }
+          $("button").on("click", function(event) {
+            $(this)
+              .parent()
+              .parent()
+              .remove();
+          });
         })
       );
   });
+
   // code snippet to remove a pin rezoom the map
   $("#test2").on("click", function() {
     markerArray[markerArray.length - 1].setMap(null);

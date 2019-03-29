@@ -55,7 +55,7 @@ body {
 
   #listDisplay {
     border-right: 1px solid black;
-    width: 40%;
+    width: 30%;
     padding-right: 1em;
   }
 
@@ -82,16 +82,33 @@ body {
     font-size: 1em;
   }
 
-  #map_pin {
-    display: flex;
-    margin: 2em;
-  }
-
   .selected_list {
     margin: 1em;
     width: 100%;
     display: block;
+  }
+
+  #map_pin {
+    display: flex;
+    margin: 2em;
+    width: 100%;
+  }
+
+  .display {
+    width: 100%
+  }
+
+  #map {
+    height: 500px;
+    width: 70%;
+    margin: 1em;
+    border: 1px solid black;
     border-radius: 0.5em;
+  }
+
+
+  #pinList {
+    width: 30%;
   }
 
   .selected_pin {
@@ -127,13 +144,5 @@ body {
       text-align: center;
       border-radius: 0.2em;
     }
-  }
-
-  #map {
-    height: 500px;
-    width: 70%;
-    margin: 1em;
-    border: 1px solid black;
-    border-radius: 0.5em;
   }
 }

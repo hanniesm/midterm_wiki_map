@@ -2,14 +2,12 @@
 
 const express = require("express");
 const router = express.Router();
-const list_id = 2;
 
 module.exports = knex => {
   router.get("/", (req, res) => {
     knex
       .select("*")
       .from("pinpoints")
-      .where({ list_id })
       .then(results => {
         res.json(results);
       });
@@ -28,7 +26,7 @@ module.exports = knex => {
   router.post("/", (req, res) => {
     knex("pinpoints")
       .insert({
-        list_id: 2,
+        list_id: 2, /// THIS IS HARDCODED!
         title: req.body.title,
         description: req.body.title,
         image:
@@ -42,16 +40,16 @@ module.exports = knex => {
     res.redirect("/");
   });
 
-  router.post("/delete", (req, res) => {
+  router.post("/:id/delete", (req, res) => {
     knex("pinpoints")
-      .where({ id: id })
+      .where({ id: req.params.id })
       .del();
     res.redirect("/");
   });
 
-  router.post("/modify", (req, res) => {
+  router.post("/:id/modify", (req, res) => {
     knex("pinpoints")
-      .where({ id: id })
+      .where({ id: req.params.id })
       .update({
         title: req.body.title,
         description: req.body.title,

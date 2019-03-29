@@ -4,23 +4,6 @@ let placedMarkerCounter = 0;
 let map;
 let bounds;
 
-// function createListRow(listItem) {
-//   const $tableRow = $("<tr>").append(
-//     $("<td>").text(listItem.label),
-//     $("<td>").text(listItem.title)
-//   );
-//   return $tableRow;
-// }
-
-//Not being used
-// function renderList(data) {
-//   $("#testTable").empty();
-//   data.forEach(item => {
-//     let rendered = createListRow(item);
-//     $("#testTable").append(rendered);
-//   });
-// }
-
 function renderPins(pins) {
   $("#pinList").empty();
   for (const pinObj of pins) {
@@ -42,27 +25,31 @@ function initMap() {
   bounds = new google.maps.LatLngBounds();
   $.ajax({
     method: "GET",
-    url: "/api/lists/1/pinpoints"
+    url: "/api/lists/2/pinpoints"
   }).done(pinpoints => {
     // renderPins(pinpoints);
-    for (var i = 0; i < pinpoints.length; i++) {
-      markerArray.push({
-        position: {
-          lat: pinpoints[i].latitude,
-          lng: pinpoints[i].longitude
-        }
-      });
-      for (var elem of markerArray) {
-        var marker = new google.maps.Marker({
-          position: elem.position,
-          label: elem.label
-        });
-        marker.setMap(map);
-        bounds.extend(marker.getPosition());
-        map.fitBounds(bounds);
-      }
-    }
+    pinPlacer(pinpoints);
   });
+}
+
+function pinPlacer(pinpoints) {
+  for (var i = 0; i < pinpoints.length; i++) {
+    // markerArray.push({
+    //   position: {
+    //     lat: pinpoints[i].latitude,
+    //     lng: pinpoints[i].longitude
+    //   }
+    // });
+    for (var elem of markerArray) {
+      var marker = new google.maps.Marker({
+        position: elem.position,
+        label: elem.label
+      });
+      marker.setMap(map);
+      bounds.extend(marker.getPosition());
+      map.fitBounds(bounds);
+    }
+  }
 }
 
 $(document).ready(function() {
@@ -80,15 +67,17 @@ $(document).ready(function() {
     map.fitBounds(bounds);
   });
   $("#accordion").on("click", ".card", function(event) {
-    const myID = this.id;
-    const myURL = "/api/lists/" + myID;
-    const myPinpoints = myURL + "/pinpoints";
+    let myID = this.id;
+    let myURL = "/api/lists/" + myID;
+    let myPinpoints = myURL + "/pinpoints";
     $.ajax({
       method: "GET",
       url: myURL
     })
       .then(results => {
-        $("#list_header").text(results[0].title).attr("list-id", results[0].id);
+        $("#list_header")
+          .text(results[0].title)
+          .attr("list-id", results[0].id);
         $("#list_info").text(results[0].description);
       })
       .then(
@@ -98,7 +87,6 @@ $(document).ready(function() {
         }).then(results => {
           const listPinpoints = results;
           $("#pin_info").empty();
-          initMap();
           markerArray = [];
           for (var point of listPinpoints) {
             var newMarker = new google.maps.Marker({
@@ -111,6 +99,7 @@ $(document).ready(function() {
             newMarker.setMap(map);
             bounds.extend(newMarker.getPosition());
             map.fitBounds(bounds);
+            initMap();
             $("#pin_header").text("List items");
             $("#pin_info").append(
               $("<tr>")

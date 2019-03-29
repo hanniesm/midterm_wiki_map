@@ -67,6 +67,7 @@ $(document).ready(function() {
     map.fitBounds(bounds);
   });
   $("#accordion").on("click", ".card", function(event) {
+    initMap();
     let myID = this.id;
     let myURL = "/api/lists/" + myID;
     let myPinpoints = myURL + "/pinpoints";

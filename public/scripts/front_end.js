@@ -50,20 +50,20 @@ $(document).ready(function() {
     console.log("edit");
     //Need to add
   });
-  $("#accordion").on("click", ".card", function(event) {
-    $(this)
-      .find("button")
-      .removeClass("btn btn-link collapsed")
-      .addClass("btn btn-link")
-      .attr("aria-expanded", "true");
-    $(this)
-      .find("button")
-      .removeClass("btn btn-link collapsed")
-      .addClass("btn btn-link")
-      .attr("aria-expanded", "true");
-    // console.log(this.id);
-    //Need to add
-  });
+  // $("#accordion").on("click", ".card", function(event) {
+  //   $(this)
+  //     .find("button")
+  //     .removeClass("btn btn-link collapsed")
+  //     .addClass("btn btn-link")
+  //     .attr("aria-expanded", "true");
+  //   $(this)
+  //     .find("button")
+  //     .removeClass("btn btn-link collapsed")
+  //     .addClass("btn btn-link")
+  //     .attr("aria-expanded", "true");
+  // console.log(this.id);
+  //Need to add
+  // });
 });
 
 function renderLists(lists) {

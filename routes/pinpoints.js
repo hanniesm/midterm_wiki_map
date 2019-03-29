@@ -15,6 +15,16 @@ module.exports = knex => {
       });
   });
 
+  router.get("/:id", (req, res) => {
+    knex
+      .select("*")
+      .from("pinpoints")
+      .where({ id: req.params.id })
+      .then(results => {
+        res.json(results);
+      });
+  });
+
   router.get("/list_id/:list_id", (req, res) => {
     myID = req.params;
     knex

@@ -1,4 +1,4 @@
-const markerArray = [];
+let markerArray = [];
 const labelString = "ABCDEFGHIJKLMNOPQRSTUVYZ";
 let placedMarkerCounter = 0;
 let map;
@@ -29,7 +29,7 @@ function renderPins(pins) {
 }
 
 function createPinList(pin) {
-  const $pin = $("<p>").text(pin.title)
+  const $pin = $("<p>").text(pin.title);
   return $pin;
 }
 
@@ -82,28 +82,33 @@ $(document).ready(function() {
     bounds.extend(newMarker.getPosition());
     map.fitBounds(bounds);
   });
-  $(".card").on("click", function(e) {
-    const myID = event.target.data("id");
-    console.log(myID);
-  });
+  // $(".card").on("click", function(e) {
+  //   const myID = event.target.data("id");
+  //   console.log(myID);
+  // });
   $("#accordion").on("click", ".card", function(event) {
     const myID = this.id;
     const myURL = "/api/lists/" + myID;
+    const myPinpoints = myURL + "/pinpoints";
     $.ajax({
       method: "GET",
       url: myURL
     })
-      .done(results => {
+      .then(results => {
         $("#list_header").text(results[0].title);
         $("#list_info").text(results[0].description);
       })
-      .then(function() {
-        for (var marker of markerArray) {
-          if (marker.list_id === 1) {
-            console.log(marker);
+      .then(
+        $.ajax({
+          method: "GET",
+          url: myPinpoints
+        }).then(results => {
+          const listPinpoints = results;
+          for (var point of listPinpoints) {
+            $("#list_info").append($("<div>").text(point.title));
           }
-        }
-      });
+        })
+      );
   });
   // code snippet to remove a pin rezoom the map
   $("#test2").on("click", function() {

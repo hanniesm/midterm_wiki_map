@@ -4,21 +4,22 @@ let placedMarkerCounter = 0;
 let map;
 let bounds;
 
-function createListRow(listItem) {
-  const $tableRow = $("<tr>").append(
-    $("<td>").text(listItem.label),
-    $("<td>").text(listItem.title)
-  );
-  return $tableRow;
-}
+// function createListRow(listItem) {
+//   const $tableRow = $("<tr>").append(
+//     $("<td>").text(listItem.label),
+//     $("<td>").text(listItem.title)
+//   );
+//   return $tableRow;
+// }
 
-function renderList(data) {
-  $("#testTable").empty();
-  data.forEach(item => {
-    let rendered = createListRow(item);
-    $("#testTable").append(rendered);
-  });
-}
+//Not being used
+// function renderList(data) {
+//   $("#testTable").empty();
+//   data.forEach(item => {
+//     let rendered = createListRow(item);
+//     $("#testTable").append(rendered);
+//   });
+// }
 
 function renderPins(pins) {
   $("#pinList").empty();
@@ -87,7 +88,7 @@ $(document).ready(function() {
       url: myURL
     })
       .then(results => {
-        $("#list_header").text(results[0].title);
+        $("#list_header").text(results[0].title).attr("list-id", results[0].id);
         $("#list_info").text(results[0].description);
       })
       .then(
@@ -130,7 +131,7 @@ $(document).ready(function() {
                 )
             );
           }
-          $("button").on("click", function(event) {
+          $(".deleter").on("click", function(event) {
             $(this)
               .parent()
               .parent()

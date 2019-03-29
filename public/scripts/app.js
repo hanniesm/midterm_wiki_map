@@ -68,6 +68,29 @@ $(document).ready(function() {
     bounds.extend(newMarker.getPosition());
     map.fitBounds(bounds);
   });
+  $(".card").on("click", function(e) {
+    const myID = event.target.data("id");
+    console.log(myID);
+  });
+  $("#accordion").on("click", ".card", function(event) {
+    const myID = this.id;
+    const myURL = "/api/lists/" + myID;
+    $.ajax({
+      method: "GET",
+      url: myURL
+    })
+      .done(results => {
+        $("#pin_header").text(results[0].title);
+        $("#pin_info").text(results[0].description);
+      })
+      .then(function() {
+        for (var marker of markerArray) {
+          if (marker.list_id === 1) {
+            console.log(marker);
+          }
+        }
+      });
+  });
   // code snippet to remove a pin rezoom the map
   $("#test2").on("click", function() {
     markerArray[markerArray.length - 1].setMap(null);

@@ -19,8 +19,7 @@ $(document).ready(function() {
   });
 });
 
-
-$(document).ready(function(){
+$(document).ready(function() {
   $("#favorite").on("click", function() {
     event.preventDefault();
     console.log("Button clicked, performing ajax call...");
@@ -38,7 +37,6 @@ $(document).ready(function(){
     // });
   });
 });
-
 
 $(document).ready(function() {
   $("#accordion").on("click", ".fa-star", function(event) {
@@ -63,7 +61,7 @@ $(document).ready(function() {
       .removeClass("btn btn-link collapsed")
       .addClass("btn btn-link")
       .attr("aria-expanded", "true");
-    console.log("collapse");
+    console.log(this.id);
     //Need to add
   });
 });
@@ -206,7 +204,6 @@ function infobox() {
     );
   $("#selected_pin").append($div);
 }
-
 
 // infobox();
 

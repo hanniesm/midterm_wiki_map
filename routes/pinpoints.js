@@ -26,11 +26,10 @@ module.exports = knex => {
   router.post("/", (req, res) => {
     knex("pinpoints")
       .insert({
-        list_id: 2, /// THIS IS HARDCODED!
+        list_id: req.body.listID,
         title: req.body.title,
         description: req.body.title,
-        image:
-          "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
+        image: req.body.image,
         latitude: req.body.latitude,
         longitude: req.body.longitude
       })

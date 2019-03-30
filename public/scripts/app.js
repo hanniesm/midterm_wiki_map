@@ -25,7 +25,7 @@ function initMap() {
   bounds = new google.maps.LatLngBounds();
   $.ajax({
     method: "GET",
-    url: "/api/lists/2/pinpoints"
+    url: "/api/pinpoints"
   }).done(pinpoints => {
     // renderPins(pinpoints);
     pinPlacer(pinpoints);
@@ -147,8 +147,6 @@ $(document).ready(function() {
             map.fitBounds(bounds);
 
             initMap();
-            $("#pin_header").text("List items");
-            // $("#pinListHeader").text("List items");
             $("#pinListInfo").append(
               $("<tr>")
                 .addClass("list_row")
@@ -157,9 +155,6 @@ $(document).ready(function() {
                     .addClass("row_title")
                     .text(point.title)
                     .attr("pinid", point.id),
-                  // $("<td>")
-                  //   .addClass("row_description")
-                  //   .text(point.description),
                   $("<td>").append(
                     $("<button>")
                       .attr("pin-id", point.id)
@@ -169,6 +164,7 @@ $(document).ready(function() {
                 )
             );
           }
+          /////// Delete list item from front-end and database;
           $(".deleter").on("click", function(event) {
             const pinID = $(this)
               .parent()
@@ -180,6 +176,7 @@ $(document).ready(function() {
               .parent()
               .remove();
             $.ajax({ method: "POST", url: reqURL }).then(results => {
+              $("#map").empty();
               initMap();
             });
           });
@@ -190,13 +187,4 @@ $(document).ready(function() {
         })
       );
   });
-
-  // code snippet to remove a pin rezoom the map
-  // $("#test2").on("click", function() {
-  //   markerArray[markerArray.length - 1].setMap(null);
-  //   markerArray.pop();
-  //   placedMarkerCounter--;
-  //   $("#map").empty();
-  //   initMap();
-  // });
 });

@@ -46,7 +46,7 @@ module.exports = knex => {
       });
   });
 
-  router.post("/:id/modify", (req, res) => {
+  router.post("/:id/modify/", (req, res) => {
     knex("lists")
       .where({ id: req.params.id })
       .update({ title: req.body.title, description: req.body.description })

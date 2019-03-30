@@ -52,6 +52,32 @@ function renderLists(lists) {
 // console.log(favoriteLists)
 
 
+const getFavorites = (userid, listid) => {
+  $(document).ready(function() {
+    const url = "/api/users/" + userid + "/favorites";
+    const requestOptions = {
+      method: "GET",
+      url: url,
+      dataType: "json"
+    };
+
+    request(requestOptions, function(response) {
+      for (list of response) {
+        if (list.list_id === listid && list.user_id === userid) {
+          favoriteStatus = true;
+        } else {
+          favoriteStatus = false;
+        }
+        return favoriteStatus;
+      }
+
+      // .done(console.log(favoriteStatus))
+    }).done(console.log(favoriteStatus));
+  });
+};
+
+// console.log("this is " + getFavorites(3, 1));
+
 function createListElement(list, favorite) {
   //create card
   const $list = $("<div>")
@@ -101,8 +127,12 @@ const request = (options, cb) => {
     })
 
     .always(() => {
-      console.log("Request completed");
+      // console.log("Request completed");
     });
+
+  // .always(() => {
+  //   console.log("Request completed");
+  // });
 };
 
 const loadLists = () => {
@@ -124,48 +154,123 @@ const loadLists = () => {
 loadLists();
 
 
-function infobox() {
-  let $div = $("<div>")
+const newPinForms = function() {
+  let $div = $("<form>")
     .attr("id", "inputForms")
     .append(
-      $("<form>")
-        .attr("action", "/api/pinpoints")
-        .attr("method", "POST")
-        .append(
-          $("<input>")
-            .attr("id", "title")
-            .attr("type", "text")
-            .attr("placeholder", "Title")
-            .attr("name", "title"),
-          $("<input>")
-            .attr("id", "description")
-            .attr("type", "text")
-            .attr("placeholder", "Description")
-            .attr("name", "description"),
-          $("<input>")
-            .attr("id", "latitude")
-            .attr("type", "text")
-            .attr("placeholder", "Latitude")
-            .attr("name", "latitude"),
-          $("<input>")
-            .attr("id", "longitude")
-            .attr("type", "text")
-            .attr("placeholder", "Longitude")
-            .attr("name", "longitude"),
-          $("<input>")
-            .attr("id", "marker_adder")
-            .attr("type", "submit")
-            .attr("value", "Submit")
-        )
+      $("<p>").text("New Pin:"),
+      $("<input>")
+        .attr("id", "title")
+        .attr("type", "text")
+        .attr("placeholder", "Title")
+        .attr("name", "title"),
+      $("<input>")
+        .attr("id", "description")
+        .attr("type", "text")
+        .attr("placeholder", "Description")
+        .attr("name", "description"),
+      $("<input>")
+        .attr("id", "latitude")
+        .attr("type", "text")
+        .attr("placeholder", "Latitude")
+        .attr("name", "latitude"),
+      $("<input>")
+        .attr("id", "longitude")
+        .attr("type", "text")
+        .attr("placeholder", "Longitude")
+        .attr("name", "longitude"),
+      $("<input>")
+        .attr("id", "image")
+        .attr("type", "text")
+        .attr("placeholder", "Image link")
+        .attr("name", "longitude"),
+      $("<input>")
+        .attr("id", "marker_adder")
+        .attr("type", "submit")
+        .attr("value", "Submit")
     );
-  $("#selected_pin").append($div);
-}
+  $(".selected_list").append($div);
+  $("#inputForms").slideUp();
+};
 
-// infobox();
+const editList = function() {
+  let $form = $("<form>")
+    .attr("id", "editForms")
+    .append(
+      $("<p>").text("Edit List Details:"),
+      $("<input>")
+        .attr("id", "edited_title")
+        .attr("type", "text")
+        .attr("placeholder", "Title")
+        .attr("name", "edited_title"),
+      $("<input>")
+        .attr("id", "edited_description")
+        .attr("type", "text")
+        .attr("placeholder", "Description")
+        .attr("name", "edited_description"),
+      $("<input>")
+        .attr("id", "list_editor")
+        .attr("type", "submit")
+        .attr("value", "Submit")
+    );
+  $(".selected_list").append($form);
+  $("#editForms").slideUp();
+};
 
 $(document).ready(function() {
-  infobox();
-  $("#selected_pin").on("click", function() {
+  /////// Load a couple HTML elements - List creator, editor
+  newPinForms();
+  loadLists();
+  editList();
+
+  /////// Adds a new marker
+  $("#new_pin").on("click", function() {
+    const listID = $("#list_header").attr("list-id");
+    console.log(listID);
     $("#inputForms").slideToggle();
+    $("#marker_adder").on("click", function() {
+      $.ajax({
+        method: "POST",
+        url: "api/pinpoints",
+        data: {
+          list_id: $("#list_header").attr("list-id"),
+          title: $("#title").val(),
+          description: $("#description").val(),
+          latitude: $("#latitude").val(),
+          longitude: $("#longitude").val(),
+          image: $("#image").val()
+        }
+      }).done(function() {
+        $("#map").empty();
+        initMap();
+      });
+    });
+  });
+
+  /////// Edit a list details
+  $("#edit_list").on("click", function() {
+    const listID = $("#list_header").attr("list-id");
+    $("#editForms").slideToggle();
+    $("#list_editor").on("click", function() {
+      $.ajax({
+        method: "POST",
+        url: "api/lists/" + listID + "/modify/",
+        data: {
+          title: $("#edited_title").val(),
+          description: $("#edited_description").val()
+        }
+      });
+    });
+  });
+
+  /////// Delete a list
+  $("#delete_list").on("click", function() {
+    const listID = $("#list_header").attr("list-id");
+    $.ajax({
+      method: "POST",
+      url: "/api/lists/" + listID + "/delete"
+    }).done(function() {
+      loadLists();
+    });
   });
 });

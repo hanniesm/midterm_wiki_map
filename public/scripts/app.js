@@ -54,40 +54,46 @@ function pinPlacer(pinpoints) {
 
 function printPin(pin) {
   $("#selected_pin").empty();
-    const $pin = createPinElement(pin);
-    $("#selected_pin").append($pin);
-    // console.log($pin)
+  const $pin = createPinElement(pin);
+  $("#selected_pin").append($pin);
+  // console.log($pin)
 }
 
 //create pin
 function createPinElement(pin) {
   const $pinObject = pin[0];
 
-  const $pin = $("<div>").attr("id", $pinObject.id)
-  $("<img>").attr("id", "selected_pin_image").attr("src", $pinObject.image).appendTo($pin)
-  const $header = $("<header>").attr("id", "pin_header")
-  $("<h3>").text($pinObject.title).appendTo($header)
-  $header.appendTo($pin)
-  const $pinBody = $("<div>").attr("id", "pin_info")
-  $("<p>").text($pinObject.description).appendTo($pinBody)
-  $pinBody.appendTo($pin)
+  const $pin = $("<div>").attr("id", $pinObject.id);
+  $("<img>")
+    .attr("id", "selected_pin_image")
+    .attr("src", $pinObject.image)
+    .appendTo($pin);
+  const $header = $("<header>").attr("id", "pin_header");
+  $("<h3>")
+    .text($pinObject.title)
+    .appendTo($header);
+  $header.appendTo($pin);
+  const $pinBody = $("<div>").attr("id", "pin_info");
+  $("<p>")
+    .text($pinObject.description)
+    .appendTo($pinBody);
+  $pinBody.appendTo($pin);
 
   return $pin;
 }
 
+const loadPin = id => {
+  const url = "/api/pinpoints/" + id;
+  const requestOptions = {
+    method: "GET",
+    url: url,
+    dataType: "json"
+  };
 
-const loadPin = (id) => {
-    const url = "/api/pinpoints/" + id;
-    const requestOptions = {
-      method: "GET",
-      url: url,
-      dataType: "json"
-    };
-
-    request(requestOptions, function(response) {
-      // console.log(response)
-      printPin(response);
-    });
+  request(requestOptions, function(response) {
+    // console.log(response)
+    printPin(response);
+  });
 };
 
 $(document).ready(function() {
@@ -164,26 +170,33 @@ $(document).ready(function() {
             );
           }
           $(".deleter").on("click", function(event) {
+            const pinID = $(this)
+              .parent()
+              .prev()
+              .attr("pinid");
+            const reqURL = "api/pinpoints/" + pinID + "/delete";
             $(this)
               .parent()
               .parent()
               .remove();
+            $.ajax({ method: "POST", url: reqURL }).then(results => {
+              initMap();
+            });
           });
 
           $(".row_title").on("click", function(event) {
-              // console.log($(this).attr("pinid"));
-              loadPin($(this).attr("pinid"));
-          })
+            loadPin($(this).attr("pinid"));
+          });
         })
       );
   });
 
   // code snippet to remove a pin rezoom the map
-  $("#test2").on("click", function() {
-    markerArray[markerArray.length - 1].setMap(null);
-    markerArray.pop();
-    placedMarkerCounter--;
-    $("#map").empty();
-    initMap();
-  });
+  // $("#test2").on("click", function() {
+  //   markerArray[markerArray.length - 1].setMap(null);
+  //   markerArray.pop();
+  //   placedMarkerCounter--;
+  //   $("#map").empty();
+  //   initMap();
+  // });
 });

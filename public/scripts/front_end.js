@@ -145,7 +145,7 @@ const request = (options, cb) => {
     })
 
     .always(() => {
-      console.log("Request completed");
+      // console.log("Request completed");
     });
 };
 
@@ -168,7 +168,7 @@ const loadLists = () => {
 
 loadLists();
 
-function infobox() {
+function newPinForms() {
   let $div = $("<div>")
     .attr("id", "inputForms")
     .append(
@@ -202,14 +202,56 @@ function infobox() {
             .attr("value", "Submit")
         )
     );
-  $("#selected_pin").append($div);
+  $(".selected_list").append($div);
+  $("#inputForms").slideUp();
 }
 
-// infobox();
+function editList() {
+  let $div = $("<div>")
+    .attr("id", "editForms")
+    .append(
+      $("<form>")
+        .attr("action", "/api/pinpoints")
+        .attr("method", "POST")
+        .append(
+          $("<input>")
+            .attr("id", "title")
+            .attr("type", "text")
+            .attr("placeholder", "Title")
+            .attr("name", "title"),
+          $("<input>")
+            .attr("id", "description")
+            .attr("type", "text")
+            .attr("placeholder", "Description")
+            .attr("name", "description"),
+          $("<input>")
+            .attr("id", "list_editor")
+            .attr("type", "submit")
+            .attr("value", "Submit")
+        )
+    );
+  $(".selected_list").append($div);
+  $("#editForms").slideUp();
+}
 
 $(document).ready(function() {
-  infobox();
-  $("#selected_pin").on("click", function() {
+  newPinForms();
+  editList();
+  $("#new_pin").on("click", function() {
     $("#inputForms").slideToggle();
+  });
+  $("#edit_list").on("click", function() {
+    $("#editForms").slideToggle();
+    const listID = $("#list_header").attr("list-id");
+    console.log(listID);
+    $.ajax({ method: "POST", url: "api/lists/" + listID + "/modify" });
+  });
+  $("#delete_list").on("click", function() {
+    $.ajax({
+      method: "POST",
+      url: "/api/lists/7/delete"
+    }).done(function() {
+      loadLists();
+    });
   });
 });

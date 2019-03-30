@@ -41,10 +41,28 @@ module.exports = knex => {
         description: req.body.description,
         created_by_id: "3"
       })
-      .then(result => {
-        console.log(result);
+      .then(results => {
+        res.redirect("/");
       });
-    res.redirect("/");
   });
+
+  router.post("/:id/modify", (req, res) => {
+    knex("lists")
+      .where({ id: req.params.id })
+      .update({ title: req.body.title, description: req.body.description })
+      .then(results => {
+        res.redirect("/");
+      });
+  });
+
+  router.post("/:id/delete", (req, res) => {
+    knex("lists")
+      .where({ id: req.params.id })
+      .del()
+      .then(results => {
+        res.redirect("/");
+      });
+  });
+
   return router;
 };

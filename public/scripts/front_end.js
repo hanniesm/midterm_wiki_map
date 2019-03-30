@@ -70,35 +70,35 @@ function renderLists(lists) {
   $("#accordion").empty();
   for (const listObj of lists) {
     const $list = createListElement(listObj, false);
-    // const $favorite = getFavorites(3, listObj.id);
+    // console.log(getFavorites(3));
     // console.log($favorite);
     $("#accordion").append($list);
   }
 }
 
-const getFavorites = (userid, listid) => {
-  $(document).ready(function() {
-    const url = "/api/users/" + userid + "/favorites";
-    const requestOptions = {
-      method: "GET",
-      url: url,
-      dataType: "json"
-    };
+// const getFavorites = (userid, listid) => {
+//   $(document).ready(function() {
+//     const url = "/api/users/" + userid + "/favorites";
+//     const requestOptions = {
+//       method: "GET",
+//       url: url,
+//       dataType: "json"
+//     };
 
-    request(requestOptions, function(response) {
-      for (list of response) {
-        if (list.list_id === listid && list.user_id === userid) {
-          favoriteStatus = true;
-        } else {
-          favoriteStatus = false;
-        }
-        return favoriteStatus;
-      }
+//     request(requestOptions, function(response) {
+//       for (list of response) {
+//         if (list.list_id === listid && list.user_id === userid) {
+//           favoriteStatus = true;
+//         } else {
+//           favoriteStatus = false;
+//         }
+//         return favoriteStatus;
+//       }
 
-      // .done(console.log(favoriteStatus))
-    }).done(console.log(favoriteStatus));
-  });
-};
+//       // .done(console.log(favoriteStatus))
+//     }).done(console.log(favoriteStatus));
+//   });
+// };
 
 // console.log("this is " + getFavorites(3, 1));
 
@@ -127,17 +127,17 @@ function createListElement(list, favorite) {
   const $icons = $("<div>").attr("id", "icons");
   // const $favorite = getFavorites("3");
   // console.log($favorite);
-  if (favorite === true) {
-    $("<i>")
-      .addClass("fas fa-star")
-      .attr("id", "favorite")
-      .appendTo($icons);
-  } else {
-    $("<i>")
-      .addClass("far fa-star")
-      .attr("id", "favorite")
-      .appendTo($icons);
-  }
+  // if (getFavorites(list)) {
+  $("<i>")
+    .addClass("fas fa-star")
+    .attr("id", "favorite")
+    .appendTo($icons);
+  // } else {
+  $("<i>")
+    .addClass("far fa-star")
+    .attr("id", "favorite")
+    .appendTo($icons);
+  // }
   // $("<i>")
   //   .addClass("far fa-edit")
   //   .appendTo($icons);
@@ -277,20 +277,24 @@ $(document).ready(function() {
 
   /////// Adds a new marker
   $("#new_pin").on("click", function() {
-    const listID = $("#list_header").attr("list-id");
-    console.log(listID);
     $("#inputForms").slideToggle();
-    $("#marker_adder").on("click", function() {
+    $("#marker_adder  ").on("click", function() {
+      const listID = $("#list_header").attr("list-id");
+      const markertitle = $("#title").val();
+      const markerdesc = $("#description").val();
+      const lat = $("#latitude").val();
+      const lng = $("#longitude").val();
+      const image = $("#image").val();
       $.ajax({
         method: "POST",
         url: "api/pinpoints",
         data: {
-          list_id: $("#list_header").attr("list-id"),
-          title: $("#title").val(),
-          description: $("#description").val(),
-          latitude: $("#latitude").val(),
-          longitude: $("#longitude").val(),
-          image: $("#image").val()
+          list_id: listID,
+          title: markertitle,
+          description: markerdesc,
+          latitude: lat,
+          longitude: lng,
+          image: image
         }
       }).done(function() {
         $("#map").empty();
@@ -315,14 +319,21 @@ $(document).ready(function() {
     });
   });
 
-  /////// Delete a list
+  /////// Delete a list and it's elements from the database
   $("#delete_list").on("click", function() {
     const listID = $("#list_header").attr("list-id");
     $.ajax({
       method: "POST",
       url: "/api/lists/" + listID + "/delete"
-    }).done(function() {
-      loadLists();
-    });
+    })
+      .then(function() {
+        $.ajax({
+          method: "POST",
+          url: "/api/pinpoints/listdelete/" + listID
+        });
+      })
+      .done(function() {
+        loadLists();
+      });
   });
 });

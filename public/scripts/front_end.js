@@ -1,94 +1,56 @@
 
 //Add event listener that will add/remove the list from the user's favorites and reload list so that it has correct star.
 
-// const addFavorite = () => {
-//   $(document).ready(function() {
-//     $("#accordion").on("click", ".fa-star", function(event) {
-//       $(this).css({ color: "#FFC107" });
-//       const url = "/api/favorites";
-//         const requestOptions = {
-//           method: "POST",
-//           url: url,
-//           data:
-//           dataType: "json"
-//         };
 
-//       request(requestOptions, function(response) {
-//         loadLists();
-//       });
-//     });
-//   };
-// }
-
-
-//   $("#accordion").on("click", ".fa-edit", function(event) {
-//     $(this).css({ color: "#FFC107" });
-//     console.log("edit");
-//     //Need to add
-//   });
-//   // $("#accordion").on("click", ".card", function(event) {
-//   //   $(this)
-//   //     .find("button")
-//   //     .removeClass("btn btn-link collapsed")
-//   //     .addClass("btn btn-link")
-//   //     .attr("aria-expanded", "true");
-//   //   $(this)
-//   //     .find("button")
-//   //     .removeClass("btn btn-link collapsed")
-//   //     .addClass("btn btn-link")
-//   //     .attr("aria-expanded", "true");
-//   // console.log(this.id);
-//   //Need to add
-//   // });
 
 $(document).ready(function() {
   $("#new-list").slideUp();
   $(".fas.fa-plus").on("click", function() {
     $("#new-list").slideToggle();
   });
-
-//   $(".fas.fa-star").on("click", function() {
-//     console.log("remove from favorites");
-//   });
-//   $(".far.fa-edit").on("click", function() {
-//     console.log("edit map");
-//   });
 });
 
 
 
 function renderLists(lists) {
   $("#accordion").empty();
+
   for (const listObj of lists) {
-    const $list = createListElement(listObj, false);
-    const $favorite = getFavorites(3, listObj.id);
+    let listID = listObj.list_id
+    const $isFavorite = (listID) => {
+      $(document).ready(function() {
+
+      const url = "/api/users/3/favorites/";
+        const requestOptions = {
+          method: "GET",
+          url: url,
+          dataType: "json"
+        };
+
+        request(requestOptions, function(response) {
+            return response[0].list_id === list_id
+        });
+    });
+  };
+
+    console.log($isFavorite);
+    const $list = createListElement(listObj, $isFavorite);
     $("#accordion").append($list);
   }
 }
 
-const isFavorite = (response, userid) => {
-// console.log(response)
-  for (const list of response) {
-    if (list.user_id === userid) {
-      return true;
-    }
 
-  }
-}
+// let favoriteLists = [];
 
-const favoriteLists = [];
+// function renderFavorites(favorites) {
+//   $(document).ready(function() {
+//     const $favorites = favorites[0]
+//     favoriteLists.push($favorites.list_id);
+//   });
+// }
 
-function renderFavorites(favorites) {
+// console.log(favoriteLists)
 
-  for (const row in favorites) {
-    favoriteLists.push(favorites[0].list_id);
-  }
-}
-
-console.log(favoriteLists)
-
-
-// console.log(getFavorites("3"))
 
 function createListElement(list, favorite) {
   //create card
@@ -101,10 +63,6 @@ function createListElement(list, favorite) {
 
   $("<button>")
     .addClass("btn btn-link collapsed")
-    // .attr("data-toggle", "collapse")
-    // .attr("data-target", "#collapseTwo")
-    // .attr("aria-expanded", "false")
-    // .attr("aria-controls", "collapseTwo")
     .text(list.title)
     .appendTo($h);
 
@@ -113,8 +71,6 @@ function createListElement(list, favorite) {
   $button.appendTo($cardHeader);
 
   const $icons = $("<div>").attr("id", "icons");
-  // const $favorite = getFavorites("3");
-  // console.log($favorite);
   if (favorite === true) {
     $("<i>")
       .addClass("fas fa-star")
@@ -126,34 +82,10 @@ function createListElement(list, favorite) {
       .attr("id", "favorite")
       .appendTo($icons);
   }
-  // $("<i>")
-  //   .addClass("far fa-edit")
-  //   .appendTo($icons);
 
   $icons.appendTo($cardHeader);
   $cardHeader.appendTo($list);
 
-  // const $cardBodyData = $("<div>")
-  //   // .addClass("collapse")
-  //   // .attr("aria-labelledby", "headingTwo")
-  //   // .attr("data-parent", "#accordion");
-  // const $cardBody = $("<div>").addClass("card-body");
-
-  // $("<p>")
-  //   .attr("id", "description")
-  //   .text(list.description)
-  //   .appendTo($cardBody);
-  // $("<p>")
-  //   .attr("id", "created_by")
-  //   .text(list.created_by_id)
-  //   .appendTo($cardBody);
-  // $("<p>")
-  //   .attr("id", "collaborators")
-  //   .text(list.collaborators)
-  //   .appendTo($cardBody);
-
-  // $cardBody.appendTo($cardBodyData);
-  // $cardBodyData.appendTo($list);
 
   return $list;
 }
@@ -173,22 +105,6 @@ const request = (options, cb) => {
     });
 };
 
-const getFavorites = () => {
-  $(document).ready(function() {
-
-    const url = "/api/users/3/favorites/";
-      const requestOptions = {
-        method: "GET",
-        url: url,
-        dataType: "json"
-      };
-
-      request(requestOptions, function(response) {
-          renderFavorites(response)
-      });
-  });
-};
-
 const loadLists = () => {
   $(document).ready(function() {
     const url = "/api/lists/";
@@ -200,16 +116,12 @@ const loadLists = () => {
     };
 
     request(requestOptions, function(response) {
-      // console.log(response)
       renderLists(response);
     });
   });
 };
 
 loadLists();
-getFavorites();
-
-
 
 
 function infobox() {

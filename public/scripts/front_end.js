@@ -61,34 +61,32 @@ function renderLists(lists) {
   $("#accordion").empty();
   for (const listObj of lists) {
     const $list = createListElement(listObj, false);
-    // const $favorite = getFavorites(3, listObj.id);
-    // console.log($favorite);
+    const $favorite = getFavorites(3, listObj.id);
     $("#accordion").append($list);
   }
 }
 
+const isFavorite = (response, userid) => {
+// console.log(response)
+  for (const list of response) {
+    if (list.user_id === userid) {
+      return true;
+    }
 
-const getFavorites = (userid, listid) => {
-  $(document).ready(function() {
+  }
+}
 
-    const url = "/api/users/" + userid + "/favorites";
-      const requestOptions = {
-        method: "GET",
-        url: url,
-        dataType: "json"
-      };
+const favoriteLists = [];
 
-      request(requestOptions, function(response) {
-        for (list of response) {
-          if (list.list_id   === listid && list.user_id === userid) {
-            return true
-          } else {
-            return false
-          }
-        }
-      });
-  });
-};
+function renderFavorites(favorites) {
+
+  for (const row in favorites) {
+    favoriteLists.push(favorites[0].list_id);
+  }
+}
+
+console.log(favoriteLists)
+
 
 // console.log(getFavorites("3"))
 
@@ -175,6 +173,22 @@ const request = (options, cb) => {
     });
 };
 
+const getFavorites = () => {
+  $(document).ready(function() {
+
+    const url = "/api/users/3/favorites/";
+      const requestOptions = {
+        method: "GET",
+        url: url,
+        dataType: "json"
+      };
+
+      request(requestOptions, function(response) {
+          renderFavorites(response)
+      });
+  });
+};
+
 const loadLists = () => {
   $(document).ready(function() {
     const url = "/api/lists/";
@@ -193,6 +207,7 @@ const loadLists = () => {
 };
 
 loadLists();
+getFavorites();
 
 
 

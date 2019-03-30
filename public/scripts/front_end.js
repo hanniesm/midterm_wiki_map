@@ -1,6 +1,3 @@
-//When creating accordian. If list is in the users favorites add i with class "fas fa-star". This will make it a solid star. Add to style sheet that fas fa-star will be #FFC107
-//If not in favorites create with "far fa-star"
-
 //Add event listener that will add/remove the list from the user's favorites and reload list so that it has correct star.
 
 $(document).ready(function() {
@@ -8,66 +5,11 @@ $(document).ready(function() {
   $(".fas.fa-plus").on("click", function() {
     $("#new-list").slideToggle();
   });
-  $(".far.fa-star").on("click", function() {
-    console.log("add to favorites");
-  });
-  $(".fas.fa-star").on("click", function() {
-    console.log("remove from favorites");
-  });
-  $(".far.fa-edit").on("click", function() {
-    console.log("edit map");
-  });
-});
-
-$(document).ready(function() {
-  $("#favorite").on("click", function() {
-    event.preventDefault();
-    console.log("Button clicked, performing ajax call...");
-
-    // const data = $(this).serialize();
-
-    // const requestOptions = {
-    //   type: "POST",
-    //   url: "/tweets/",
-    //   data,
-    // };
-
-    // request(requestOptions, function(response) {
-    // //   loadTweets();
-    // });
-  });
-});
-
-$(document).ready(function() {
-  $("#accordion").on("click", ".fa-star", function(event) {
-    $(this).css({ color: "#FFC107" });
-    console.log("add to favorites");
-
-    //Need to add
-  });
-  $("#accordion").on("click", ".fa-edit", function(event) {
-    $(this).css({ color: "#FFC107" });
-    console.log("edit");
-    //Need to add
-  });
-  // $("#accordion").on("click", ".card", function(event) {
-  //   $(this)
-  //     .find("button")
-  //     .removeClass("btn btn-link collapsed")
-  //     .addClass("btn btn-link")
-  //     .attr("aria-expanded", "true");
-  //   $(this)
-  //     .find("button")
-  //     .removeClass("btn btn-link collapsed")
-  //     .addClass("btn btn-link")
-  //     .attr("aria-expanded", "true");
-  // console.log(this.id);
-  //Need to add
-  // });
 });
 
 function renderLists(lists) {
   $("#accordion").empty();
+
   for (const listObj of lists) {
     const $list = createListElement(listObj, false);
     // console.log(getFavorites(3));
@@ -113,10 +55,6 @@ function createListElement(list, favorite) {
 
   $("<button>")
     .addClass("btn btn-link collapsed")
-    // .attr("data-toggle", "collapse")
-    // .attr("data-target", "#collapseTwo")
-    // .attr("aria-expanded", "false")
-    // .attr("aria-controls", "collapseTwo")
     .text(list.title)
     .appendTo($h);
 
@@ -125,47 +63,20 @@ function createListElement(list, favorite) {
   $button.appendTo($cardHeader);
 
   const $icons = $("<div>").attr("id", "icons");
-  // const $favorite = getFavorites("3");
-  // console.log($favorite);
-  // if (getFavorites(list)) {
-  $("<i>")
-    .addClass("fas fa-star")
-    .attr("id", "favorite")
-    .appendTo($icons);
-  // } else {
-  $("<i>")
-    .addClass("far fa-star")
-    .attr("id", "favorite")
-    .appendTo($icons);
-  // }
-  // $("<i>")
-  //   .addClass("far fa-edit")
-  //   .appendTo($icons);
+  if (favorite === true) {
+    $("<i>")
+      .addClass("fas fa-star")
+      .attr("id", "favorite")
+      .appendTo($icons);
+  } else {
+    $("<i>")
+      .addClass("far fa-star")
+      .attr("id", "favorite")
+      .appendTo($icons);
+  }
 
   $icons.appendTo($cardHeader);
   $cardHeader.appendTo($list);
-
-  // const $cardBodyData = $("<div>")
-  //   // .addClass("collapse")
-  //   // .attr("aria-labelledby", "headingTwo")
-  //   // .attr("data-parent", "#accordion");
-  // const $cardBody = $("<div>").addClass("card-body");
-
-  // $("<p>")
-  //   .attr("id", "description")
-  //   .text(list.description)
-  //   .appendTo($cardBody);
-  // $("<p>")
-  //   .attr("id", "created_by")
-  //   .text(list.created_by_id)
-  //   .appendTo($cardBody);
-  // $("<p>")
-  //   .attr("id", "collaborators")
-  //   .text(list.collaborators)
-  //   .appendTo($cardBody);
-
-  // $cardBody.appendTo($cardBodyData);
-  // $cardBodyData.appendTo($list);
 
   return $list;
 }
@@ -200,11 +111,12 @@ const loadLists = () => {
     };
 
     request(requestOptions, function(response) {
-      // console.log(response)
       renderLists(response);
     });
   });
 };
+
+loadLists();
 
 const newPinForms = function() {
   let $div = $("<form>")

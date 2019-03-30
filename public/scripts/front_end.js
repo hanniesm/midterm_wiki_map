@@ -1,70 +1,61 @@
-//When creating accordian. If list is in the users favorites add i with class "fas fa-star". This will make it a solid star. Add to style sheet that fas fa-star will be #FFC107
-//If not in favorites create with "far fa-star"
 
 //Add event listener that will add/remove the list from the user's favorites and reload list so that it has correct star.
+
+// const addFavorite = () => {
+//   $(document).ready(function() {
+//     $("#accordion").on("click", ".fa-star", function(event) {
+//       $(this).css({ color: "#FFC107" });
+//       const url = "/api/favorites";
+//         const requestOptions = {
+//           method: "POST",
+//           url: url,
+//           data:
+//           dataType: "json"
+//         };
+
+//       request(requestOptions, function(response) {
+//         loadLists();
+//       });
+//     });
+//   };
+// }
+
+
+//   $("#accordion").on("click", ".fa-edit", function(event) {
+//     $(this).css({ color: "#FFC107" });
+//     console.log("edit");
+//     //Need to add
+//   });
+//   // $("#accordion").on("click", ".card", function(event) {
+//   //   $(this)
+//   //     .find("button")
+//   //     .removeClass("btn btn-link collapsed")
+//   //     .addClass("btn btn-link")
+//   //     .attr("aria-expanded", "true");
+//   //   $(this)
+//   //     .find("button")
+//   //     .removeClass("btn btn-link collapsed")
+//   //     .addClass("btn btn-link")
+//   //     .attr("aria-expanded", "true");
+//   // console.log(this.id);
+//   //Need to add
+//   // });
 
 $(document).ready(function() {
   $("#new-list").slideUp();
   $(".fas.fa-plus").on("click", function() {
     $("#new-list").slideToggle();
   });
-  $(".far.fa-star").on("click", function() {
-    console.log("add to favorites");
-  });
-  $(".fas.fa-star").on("click", function() {
-    console.log("remove from favorites");
-  });
-  $(".far.fa-edit").on("click", function() {
-    console.log("edit map");
-  });
+
+//   $(".fas.fa-star").on("click", function() {
+//     console.log("remove from favorites");
+//   });
+//   $(".far.fa-edit").on("click", function() {
+//     console.log("edit map");
+//   });
 });
 
-$(document).ready(function() {
-  $("#favorite").on("click", function() {
-    event.preventDefault();
-    console.log("Button clicked, performing ajax call...");
 
-    // const data = $(this).serialize();
-
-    // const requestOptions = {
-    //   type: "POST",
-    //   url: "/tweets/",
-    //   data,
-    // };
-
-    // request(requestOptions, function(response) {
-    // //   loadTweets();
-    // });
-  });
-});
-
-$(document).ready(function() {
-  $("#accordion").on("click", ".fa-star", function(event) {
-    $(this).css({ color: "#FFC107" });
-    console.log("add to favorites");
-
-    //Need to add
-  });
-  $("#accordion").on("click", ".fa-edit", function(event) {
-    $(this).css({ color: "#FFC107" });
-    console.log("edit");
-    //Need to add
-  });
-  // $("#accordion").on("click", ".card", function(event) {
-  //   $(this)
-  //     .find("button")
-  //     .removeClass("btn btn-link collapsed")
-  //     .addClass("btn btn-link")
-  //     .attr("aria-expanded", "true");
-  //   $(this)
-  //     .find("button")
-  //     .removeClass("btn btn-link collapsed")
-  //     .addClass("btn btn-link")
-  //     .attr("aria-expanded", "true");
-  // console.log(this.id);
-  //Need to add
-  // });
-});
 
 function renderLists(lists) {
   $("#accordion").empty();
@@ -75,7 +66,6 @@ function renderLists(lists) {
     $("#accordion").append($list);
   }
 }
-
 
 
 const getFavorites = (userid, listid) => {

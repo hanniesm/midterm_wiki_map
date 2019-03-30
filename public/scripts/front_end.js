@@ -69,12 +69,40 @@ $(document).ready(function() {
 function renderLists(lists) {
   $("#accordion").empty();
   for (const listObj of lists) {
-    const $list = createListElement(listObj);
+    const $list = createListElement(listObj, false);
+    // const $favorite = getFavorites(3, listObj.id);
+    // console.log($favorite);
     $("#accordion").append($list);
   }
 }
 
-function createListElement(list) {
+
+
+const getFavorites = (userid, listid) => {
+  $(document).ready(function() {
+
+    const url = "/api/users/" + userid + "/favorites";
+      const requestOptions = {
+        method: "GET",
+        url: url,
+        dataType: "json"
+      };
+
+      request(requestOptions, function(response) {
+        for (list of response) {
+          if (list.list_id   === listid && list.user_id === userid) {
+            return true
+          } else {
+            return false
+          }
+        }
+      });
+  });
+};
+
+// console.log(getFavorites("3"))
+
+function createListElement(list, favorite) {
   //create card
   const $list = $("<div>")
     .addClass("card")
@@ -97,11 +125,19 @@ function createListElement(list) {
   $button.appendTo($cardHeader);
 
   const $icons = $("<div>").attr("id", "icons");
-
-  $("<i>")
-    .addClass("far fa-star")
-    .attr("id", "favorite")
-    .appendTo($icons);
+  // const $favorite = getFavorites("3");
+  // console.log($favorite);
+  if (favorite === true) {
+    $("<i>")
+      .addClass("fas fa-star")
+      .attr("id", "favorite")
+      .appendTo($icons);
+  } else {
+    $("<i>")
+      .addClass("far fa-star")
+      .attr("id", "favorite")
+      .appendTo($icons);
+  }
   // $("<i>")
   //   .addClass("far fa-edit")
   //   .appendTo($icons);
@@ -169,21 +205,7 @@ const loadLists = () => {
 loadLists();
 
 
-const getFavorites = (userid) => {
 
-  const url = "/api/users/" + userid + "/favorites";
-    const requestOptions = {
-      method: "GET",
-      url: url,
-      dataType: "json"
-    };
-
-    request(requestOptions, function(response) {
-      console.log(response)
-    });
-};
-
-getFavorites(1)
 
 function infobox() {
   let $div = $("<div>")

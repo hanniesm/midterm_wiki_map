@@ -76,31 +76,31 @@ function renderLists(lists) {
   }
 }
 
-
-
 const getFavorites = (userid, listid) => {
   $(document).ready(function() {
-
     const url = "/api/users/" + userid + "/favorites";
-      const requestOptions = {
-        method: "GET",
-        url: url,
-        dataType: "json"
-      };
+    const requestOptions = {
+      method: "GET",
+      url: url,
+      dataType: "json"
+    };
 
-      request(requestOptions, function(response) {
-        for (list of response) {
-          if (list.list_id   === listid && list.user_id === userid) {
-            return true
-          } else {
-            return false
-          }
+    request(requestOptions, function(response) {
+      for (list of response) {
+        if (list.list_id === listid && list.user_id === userid) {
+          favoriteStatus = true;
+        } else {
+          favoriteStatus = false;
         }
-      });
+        return favoriteStatus;
+      }
+
+      // .done(console.log(favoriteStatus))
+    }).done(console.log(favoriteStatus));
   });
 };
 
-// console.log(getFavorites("3"))
+// console.log("this is " + getFavorites(3, 1));
 
 function createListElement(list, favorite) {
   //create card
@@ -178,11 +178,11 @@ const request = (options, cb) => {
 
     .fail(error => {
       console.log(`Error: ${error}`);
-    })
-
-    .always(() => {
-      console.log("Request completed");
     });
+
+  // .always(() => {
+  //   console.log("Request completed");
+  // });
 };
 
 const loadLists = () => {
@@ -203,9 +203,6 @@ const loadLists = () => {
 };
 
 loadLists();
-
-
-
 
 function infobox() {
   let $div = $("<div>")

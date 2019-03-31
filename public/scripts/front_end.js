@@ -18,31 +18,16 @@ function renderLists(lists) {
   }
 }
 
-// const getFavorites = (userid, listid) => {
-//   $(document).ready(function() {
-//     const url = "/api/users/" + userid + "/favorites";
-//     const requestOptions = {
-//       method: "GET",
-//       url: url,
-//       dataType: "json"
-//     };
+function renderUsersLists(lists) {
+  $("#accordionUsers").empty();
 
-//     request(requestOptions, function(response) {
-//       for (list of response) {
-//         if (list.list_id === listid && list.user_id === userid) {
-//           favoriteStatus = true;
-//         } else {
-//           favoriteStatus = false;
-//         }
-//         return favoriteStatus;
-//       }
-
-//       // .done(console.log(favoriteStatus))
-//     }).done(console.log(favoriteStatus));
-//   });
-// };
-
-// console.log("this is " + getFavorites(3, 1));
+  for (const listObj of lists) {
+    const $list = createListElement(listObj, false);
+    // console.log(getFavorites(3));
+    // console.log($favorite);
+    $("#accordionUsers").append($list);
+  }
+}
 
 function createListElement(list, favorite) {
   //create card
@@ -95,9 +80,6 @@ const request = (options, cb) => {
       // console.log("Request completed");
     });
 
-  // .always(() => {
-  //   console.log("Request completed");
-  // });
 };
 
 const loadLists = () => {
@@ -117,6 +99,24 @@ const loadLists = () => {
 };
 
 loadLists();
+
+const loadUsersLists = () => {
+  $(document).ready(function() {
+    const url = "/api/users/3/lists/";
+
+    const requestOptions = {
+      method: "GET",
+      url: url,
+      dataType: "json"
+    };
+
+    request(requestOptions, function(response) {
+      renderUsersLists(response);
+    });
+  });
+};
+
+loadUsersLists();
 
 const newPinForms = function() {
   let $div = $("<form>")
@@ -231,7 +231,7 @@ $(document).ready(function() {
     });
   });
 
-  /////// Delete a list and it's elements from the database
+  /////// Delete a list and its elements from the database
   $("#delete_list").on("click", function() {
     const listID = $("#list_header").attr("list-id");
     $.ajax({

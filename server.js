@@ -80,7 +80,6 @@ app.post("/login", (req, res) => {
       res.cookie("username", username);
       res.redirect("/");
     }
-  } else {
     res.send("User doesn't exist");
   }
 });

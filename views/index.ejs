@@ -31,7 +31,7 @@
 
   <body>
     <header>
-      <h1>MiMap</h1>
+      <a href="/"><h1>MiMap</h1></a>
       <% if (templateVars.username) { %>
         <div class="profile" id="3">
             <p><%= templateVars.username %></p>
@@ -53,11 +53,11 @@
             </div>
           </div>
       <% } else { %>
-        <form action="/login" method="POST">
-          <input type="email" name="email" placeholder="email">
-          <input type="password" name="password" placeholder="password">
-          <input type="submit" value= "Login">
-        </form>
+      <form action="/login" method="POST">
+        <input type="email" name="email" placeholder="email" />
+        <input type="password" name="password" placeholder="password" />
+        <input type="submit" value="Login" />
+      </form>
       <% } %>
     </header>
     <main>
@@ -92,15 +92,39 @@
       <div class="display">
         <div class="section">
           <div class="selected_list">
-              <div id="list">
-                <h3 id="list_header"></h3>
-                <h5 id="list_info"></h5>
-              </div>
-              <div id="button-area">
-                <button class="btn btn-primary" type="submit" value="New Pin" class="list_buttons" id="new_pin">New Pin</button>
-                <button class="btn btn-primary" type="submit" value="Edit List" class="list_buttons" id="edit_list">Edit List</button>
-                <button class="btn btn-primary" type="submit" value="Delete List" class= "list_buttons" id="delete_list">Delete List</button>
-              </div>
+            <div id="list">
+              <h3 id="list_header"></h3>
+              <h5 id="list_info"></h5>
+            </div>
+            <div id="button-area">
+              <button
+                class="btn btn-primary"
+                type="submit"
+                value="New Pin"
+                class="list_buttons"
+                id="new_pin"
+              >
+                New Pin
+              </button>
+              <button
+                class="btn btn-primary"
+                type="submit"
+                value="Edit List"
+                class="list_buttons"
+                id="edit_list"
+              >
+                Edit List
+              </button>
+              <button
+                class="btn btn-primary"
+                type="submit"
+                value="Delete List"
+                class="list_buttons"
+                id="delete_list"
+              >
+                Delete List
+              </button>
+            </div>
           </div>
           <div class="herebeforms"></div>
           <div id="pinList">
@@ -114,9 +138,9 @@
             <div id="pin_info">
               <p></p>
             </div>
+          </div>
         </div>
       </div>
-        </div>
     </main>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS805WJ6YM18KwZODbP70sT41MPwgZOzU&callback=initMap&libraries=places"

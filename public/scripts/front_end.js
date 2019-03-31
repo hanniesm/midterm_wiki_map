@@ -190,28 +190,37 @@ $(document).ready(function() {
   /////// Adds a new marker
   $("#new_pin").on("click", function() {
     $("#inputForms").slideToggle();
-    $("#marker_adder  ").on("click", function() {
+    $("#marker_adder").on("click", function() {
       const listID = $("#list_header").attr("list-id");
-      const markertitle = $("#title").val();
-      const markerdesc = $("#description").val();
+      const markerTitle = $("#title").val();
+      const markerDesc = $("#description").val();
       const lat = $("#latitude").val();
       const lng = $("#longitude").val();
       const image = $("#image").val();
-      $.ajax({
-        method: "POST",
-        url: "api/pinpoints",
-        data: {
-          list_id: listID,
-          title: markertitle,
-          description: markerdesc,
-          latitude: lat,
-          longitude: lng,
-          image: image
-        }
-      }).done(function() {
-        $("#map").empty();
-        initMap();
-      });
+      if (
+        markerTitle.length === 0 ||
+        markerDesc.length === 0 ||
+        lat.length === 0 ||
+        lng.length === 0 ||
+        image.length === 0
+      ) {
+      } else {
+        $.ajax({
+          method: "POST",
+          url: "api/pinpoints",
+          data: {
+            list_id: listID,
+            title: markerTitle,
+            description: markerDesc,
+            latitude: lat,
+            longitude: lng,
+            image: image
+          }
+        }).done(function() {
+          $("#map").empty();
+          initMap();
+        });
+      }
     });
   });
 
@@ -220,14 +229,19 @@ $(document).ready(function() {
     const listID = $("#list_header").attr("list-id");
     $("#editForms").slideToggle();
     $("#list_editor").on("click", function() {
-      $.ajax({
-        method: "POST",
-        url: "api/lists/" + listID + "/modify/",
-        data: {
-          title: $("#edited_title").val(),
-          description: $("#edited_description").val()
-        }
-      });
+      const newTitle = $("#edited_title").val();
+      const newDesc = $("#edited_description").val();
+      if (newTitle.length === 0 || newDesc.length === 0) {
+      } else {
+        $.ajax({
+          method: "POST",
+          url: "api/lists/" + listID + "/modify/",
+          data: {
+            title: newTitle,
+            description: newDesc
+          }
+        }).done(results => {});
+      }
     });
   });
 
@@ -238,13 +252,15 @@ $(document).ready(function() {
       method: "POST",
       url: "/api/lists/" + listID + "/delete"
     })
-      .then(function() {
+      .done(function() {
         $.ajax({
           method: "POST",
           url: "/api/pinpoints/listdelete/" + listID
         });
       })
       .done(function() {
+        $("#list").empty();
+        $("#pinList").empty();
         loadLists();
       });
   });

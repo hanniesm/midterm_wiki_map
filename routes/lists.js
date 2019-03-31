@@ -35,45 +35,42 @@ module.exports = knex => {
   });
 
   router.post("/", (req, res) => {
-    if (req.cookies["username"]) {
-      knex("lists")
-        .insert({
-          title: req.body.title,
-          description: req.body.description,
-          created_by_id: "3"
-        })
-        .then(results => {
-          res.redirect("/");
-        });
-    } else {
+    if (!req.cookies["username"]) {
       res.send("You need to be logged in to create a list.");
     }
+    knex("lists")
+      .insert({
+        title: req.body.title,
+        description: req.body.description,
+        created_by_id: "3"
+      })
+      .then(results => {
+        res.redirect("/");
+      });
   });
 
   router.post("/:id/modify/", (req, res) => {
-    if (req.cookies["username"]) {
-      knex("lists")
-        .where({ id: req.params.id })
-        .update({ title: req.body.title, description: req.body.description })
-        .then(results => {
-          res.redirect("/");
-        });
-    } else if (!req.cookies["username"]) {
+    if (!req.cookies["username"]) {
       res.send("You need to be logged in to edit a list.");
     }
+    knex("lists")
+      .where({ id: req.params.id })
+      .update({ title: req.body.title, description: req.body.description })
+      .then(results => {
+        res.redirect("/");
+      });
   });
 
   router.post("/:id/delete", (req, res) => {
-    if (req.cookies["username"]) {
-      knex("lists")
-        .where({ id: req.params.id })
-        .del()
-        .then(results => {
-          res.redirect("/");
-        });
-    } else {
+    if (!req.cookies["username"]) {
       res.send("You need to be logged in to delete a list.");
     }
+    knex("lists")
+      .where({ id: req.params.id })
+      .del()
+      .then(results => {
+        res.redirect("/");
+      });
   });
 
   return router;

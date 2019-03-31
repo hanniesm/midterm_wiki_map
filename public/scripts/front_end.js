@@ -153,7 +153,7 @@ const newPinForms = function() {
         .attr("type", "submit")
         .attr("value", "Submit")
     );
-  $(".selected_list").append($div);
+  $(".herebeforms").append($div);
   $("#inputForms").slideUp();
 };
 
@@ -177,7 +177,7 @@ const editList = function() {
         .attr("type", "submit")
         .attr("value", "Submit")
     );
-  $(".selected_list").append($form);
+  $(".herebeforms").append($form);
   $("#editForms").slideUp();
 };
 

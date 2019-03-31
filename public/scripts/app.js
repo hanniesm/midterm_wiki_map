@@ -1,6 +1,8 @@
 let markerArray = [];
 let map;
 let bounds;
+let labelString = "ABCDEFGHIJKLMNOPQRSTUVYZ";
+let labelCounter = 0;
 
 function renderPins(pins) {
   $("#pinList").empty();
@@ -31,12 +33,14 @@ function initMap() {
 }
 
 function pinPlacer(pinpoints) {
+  // labelCounter = 0;
   for (var i = 0; i < pinpoints.length; i++) {
     for (var elem of markerArray) {
       var marker = new google.maps.Marker({
         position: elem.position,
         label: elem.label
       });
+      // labelCounter++;
       marker.setMap(map);
       bounds.extend(marker.getPosition());
       map.fitBounds(bounds);
@@ -55,10 +59,10 @@ function createPinElement(pin) {
   const $pinObject = pin[0];
 
   const $pin = $("<div>").attr("id", $pinObject.id);
-    $("<img>")
-      .attr("id", "selected_pin_image")
-      .attr("src", $pinObject.image)
-      .appendTo($pin);
+  $("<img>")
+    .attr("id", "selected_pin_image")
+    .attr("src", $pinObject.image)
+    .appendTo($pin);
   const $header = $("<header>").attr("id", "pin_header");
   $("<h3>")
     .text($pinObject.title)
@@ -111,13 +115,16 @@ $(document).ready(function() {
           $("#pinListInfo").empty();
           initMap();
           markerArray = [];
+          labelCounter = 0;
           for (var point of listPinpoints) {
             var newMarker = new google.maps.Marker({
               position: {
                 lat: point.latitude,
                 lng: point.longitude
-              }
+              },
+              label: labelString[labelCounter]
             });
+            labelCounter++;
             markerArray.push(newMarker);
             newMarker.setMap(map);
             bounds.extend(newMarker.getPosition());

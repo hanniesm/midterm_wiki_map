@@ -33,14 +33,12 @@ function initMap() {
 }
 
 function pinPlacer(pinpoints) {
-  // labelCounter = 0;
   for (var i = 0; i < pinpoints.length; i++) {
     for (var elem of markerArray) {
       var marker = new google.maps.Marker({
         position: elem.position,
         label: elem.label
       });
-      // labelCounter++;
       marker.setMap(map);
       bounds.extend(marker.getPosition());
       map.fitBounds(bounds);

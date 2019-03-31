@@ -66,6 +66,11 @@ app.get("/login", (req, res) => {
   res.redirect("/");
 });
 
+app.get("/users/:id", (req, res) => {
+  const templateVars = { username: req.cookies["username"] };
+  res.render("users", { templateVars });
+});
+
 app.post("/login", (req, res) => {
   const inputMail = req.body.email;
   const username = user.name;

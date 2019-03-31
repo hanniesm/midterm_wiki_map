@@ -35,8 +35,9 @@ exports.seed = function(knex, Promise) {
             {list_id: 1,
             title: 'Shakespeares Bookstore',
             description: 'Books and random people playing the piano',
-            latitude: 41.0055005,
-            longitude: 28.7319902}
+            image: 'https://lh5.googleusercontent.com/p/AF1QipMMMYqUp5FQySw_Fvc21p7A0lCtZIGVU4IGbmIs=w408-h306-k-no',
+            latitude: 48.852547,
+            longitude: 2.3471197}
           ),
         knex('pinpoints')
           .insert(
@@ -52,6 +53,7 @@ exports.seed = function(knex, Promise) {
             {list_id: 2,
             title: 'Platform 9 and 3 quarters',
             description: 'Kings Cross Station',
+            image: 'https://vignette.wikia.nocookie.net/harrypotter/images/1/12/King%27s_cross_station.jpg/revision/latest?cb=20070908085852',
             latitude: 51.5316509,
             longitude: -0.1244124}
           ),

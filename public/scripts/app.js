@@ -4,18 +4,18 @@ let bounds;
 let labelString = "ABCDEFGHIJKLMNOPQRSTUVYZ";
 let labelCounter = 0;
 
-function renderPins(pins) {
-  $("#pinList").empty();
-  for (const pinObj of pins) {
-    const $pin = createPinList(pinObj);
-    $("#pinList").append($pin);
-  }
-}
+// function renderPins(pins) {
+//   $("#pinList").empty();
+//   for (const pinObj of pins) {
+//     const $pin = createPinList(pinObj);
+//     $("#pinList").append($pin);
+//   }
+// }
 
-function createPinList(pin) {
-  const $pin = $("<p>").text(pin.title);
-  return $pin;
-}
+// function createPinList(pin) {
+//   const $pin = $("<p>").text(pin.title);
+//   return $pin;
+// }
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -114,6 +114,7 @@ $(document).ready(function() {
           initMap();
           markerArray = [];
           labelCounter = 0;
+          labelArray = ["1", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"]
           for (var point of listPinpoints) {
             var newMarker = new google.maps.Marker({
               position: {
@@ -135,7 +136,7 @@ $(document).ready(function() {
                 .append(
                   $("<td>")
                     .addClass("row_title")
-                    .text(point.title)
+                    .text(`${labelArray[labelCounter]}) ${point.title}`)
                     .attr("pinid", point.id),
                   $("<td>").append(
                     $("<button>")

@@ -69,6 +69,11 @@ body {
     text-decoration: underline;
   }
 
+  .card {
+    border: none;
+    background-color: transparent;
+  }
+
   .list_row {
     display: flex;
     justify-content: space-between;
@@ -85,7 +90,7 @@ body {
   }
 
   #listDisplay {
-    border-right: 1px solid black;
+    border-right: 1px solid white;
     width: 30%;
     color: #ffffff;
     padding-right: 1em;
@@ -149,7 +154,7 @@ body {
     height: 500px;
     width: 70%;
     margin: 1em;
-    border: 1px solid black;
+    border: 1px;
     border-radius: 0.5em;
   }
 
@@ -160,7 +165,7 @@ body {
   }
 
   .selected_pin {
-    border: 1px solid black;
+    border: 1px;
     margin: 1em;
     width: 30%;
     border-radius: 0.5em;

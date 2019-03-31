@@ -36,15 +36,15 @@
         <div class="profile" id="3">
             <p><%= templateVars.username %></p>
             <div class="dropdown">
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle"
-                ><img
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                <img
                   id="profile_photo"
                   src="https://journeypurebowlinggreen.com/wp-content/uploads/2018/05/placeholder-person.jpg"/>
                 <b class="caret"></b
               ></a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu dropdown-menu-right">
                 <li><form action="/logout" method="POST">
-                  <input type="submit" value= "Logout">
+                  <input type="submit" value= "Logout" id="logout-button">
                 </form></li>
               </ul>
             </div>
@@ -54,7 +54,7 @@
           <input type="email" name="email" placeholder="email">
           <input type="password" name="password" placeholder="password">
           <input type="submit" value= "Login">
-        </form>    
+        </form>
       <% } %>
     </header>
     <main>
@@ -95,7 +95,7 @@
             <td><p id="list_info"></p></td>
             <td id="button-area">
               <button type="submit" value="New Pin" class="list_buttons" id="new_pin">New Pin</button>
-              <button type="submit" value="Edit List" class="list_buttons" id="edit_list">Edit List</button>  
+              <button type="submit" value="Edit List" class="list_buttons" id="edit_list">Edit List</button>
               <button type="submit" value="Delete List" class= "list_buttons" id="delete_list">Delete List</button>
             </td>
           </tr>

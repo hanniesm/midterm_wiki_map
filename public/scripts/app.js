@@ -55,10 +55,10 @@ function createPinElement(pin) {
   const $pinObject = pin[0];
 
   const $pin = $("<div>").attr("id", $pinObject.id);
-  $("<img>")
-    .attr("id", "selected_pin_image")
-    .attr("src", $pinObject.image)
-    .appendTo($pin);
+    $("<img>")
+      .attr("id", "selected_pin_image")
+      .attr("src", $pinObject.image)
+      .appendTo($pin);
   const $header = $("<header>").attr("id", "pin_header");
   $("<h3>")
     .text($pinObject.title)

@@ -87,42 +87,33 @@
         <div id="accordion"></div>
       </div>
       <div class="display">
-        <div class="selected_list">
-          <tr>
-            <h3 id="list_header"></h3>
-          </tr>
-          <tr>
-            <td><p id="list_info"></p></td>
-            <td id="button-area">
-              <button type="submit" value="New Pin" class="list_buttons" id="new_pin">New Pin</button>
-              <button type="submit" value="Edit List" class="list_buttons" id="edit_list">Edit List</button>
-              <button type="submit" value="Delete List" class= "list_buttons" id="delete_list">Delete List</button>
-            </td>
-          </tr>
-        </div>
-
-        <div id="map_pin">
-          <div id="map"></div>
-          <div class="selected_pin" id="pinList">
-            <header id="pinListHeader"><h3>List items</header>
+        <div class="section">
+          <div class="selected_list">
+              <div id="list">
+                <h3 id="list_header"></h3>
+                <h5 id="list_info"></h5>
+              </div>
+              <div id="button-area">
+                <button class="btn btn-primary" type="submit" value="New Pin" class="list_buttons" id="new_pin">New Pin</button>
+                <button class="btn btn-primary" type="submit" value="Edit List" class="list_buttons" id="edit_list">Edit List</button>
+                <button class="btn btn-primary" type="submit" value="Delete List" class= "list_buttons" id="delete_list">Delete List</button>
+              </div>
+          </div>
+          <div class="herebeforms"></div>
+          <div id="pinList">
             <div id="pinListInfo"></div>
           </div>
         </div>
-
-        <div class="selected_pin" id="selected_pin">
-<!--           <img
-            id="selected_pin_image"
-            src="https://upload.wikimedia.org/wikipedia/commons/3/38/Hogwarts_model_studio_tour.jpg"
-          /> -->
-          <header id="pin_header"><h3>Title of selected pin</h3></header>
-          <div id="pin_info">
-            <p>
-              Zombie ipsum reversus ab viral inferno, nam rick grimes malum
-              cerebro.
-            </p>
-          </div>
+        <div id="map_pin">
+          <div id="map"></div>
+          <div class="selected_pin" id="selected_pin">
+            <header id="pin_header"><h3>Select a list and pin</h3></header>
+            <div id="pin_info">
+              <p></p>
+            </div>
         </div>
       </div>
+        </div>
     </main>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS805WJ6YM18KwZODbP70sT41MPwgZOzU&callback=initMap&libraries=places"

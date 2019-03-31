@@ -120,7 +120,7 @@ $(document).ready(function() {
                 lat: point.latitude,
                 lng: point.longitude
               },
-              label: labelString[labelCounter]
+              label: labelCounter
             });
             labelCounter++;
             markerArray.push(newMarker);

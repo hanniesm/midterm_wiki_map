@@ -47,10 +47,35 @@ app.use("/api/lists", listsRoutes(knex));
 app.use("/api/pinpoints", pinpointsRoutes(knex));
 app.use("/api/favorites", favoritesRoutes(knex));
 
+const user = {
+  id: 3,
+  name: "Alex",
+  email: "alex@example.com",
+  password: "testlogin"
+};
+
+let dummyLogin = false;
+
 // Home page
 app.get("/", (req, res) => {
-  console.log(req.body);
   res.render("index");
+});
+
+app.get("/login", (req, res) => {
+  res.redirect("/");
+});
+
+app.post("/login", (req, res) => {
+  const inputMail = req.body.email;
+
+  if (inputMail === user.email) {
+    if (req.body.password === user.password) {
+      dummyLogin = true;
+      res.redirect("/");
+    }
+  } else {
+    res.send("Bad request");
+  }
 });
 
 app.listen(PORT, () => {

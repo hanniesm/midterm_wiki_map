@@ -47,14 +47,14 @@ module.exports = knex => {
       });
   });
 
-  router.post("/listdelete/:list_id", (req, res) => {
-    knex("pinpoints")
-      .where({ list_id: req.params.list_id })
-      .del()
-      .then(results => {
-        res.redirect("/");
-      });
-  });
+  // router.post("/listdelete/:list_id", (req, res) => {
+  //   knex("pinpoints")
+  //     .where({ list_id: req.params.list_id })
+  //     .del()
+  //     .then(results => {
+  //       res.redirect("/");
+  //     });
+  // });
 
   return router;
 };

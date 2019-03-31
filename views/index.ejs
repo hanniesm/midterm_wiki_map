@@ -33,6 +33,13 @@
     <header>
       <h1>MiMap</h1>
       <!--When have login will dynamically add user_id to id  -->
+      <% if() { %>
+      <form action="/login" method="POST">
+        <input type="email" name="email" placeholder="email">
+        <input type="password" name="password" placeholder="password">
+        <input type="submit">
+      </form>
+      <% } else { %>
       <div class="profile" id="3">
         <p>Someone</p>
         <div class="dropdown">
@@ -47,6 +54,7 @@
           </ul>
         </div>
       </div>
+      <% } %>
     </header>
     <main>
       <div id="listDisplay">

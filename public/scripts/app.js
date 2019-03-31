@@ -1,6 +1,4 @@
 let markerArray = [];
-// const labelString = "ABCDEFGHIJKLMNOPQRSTUVYZ";
-// let placedMarkerCounter = 0;
 let map;
 let bounds;
 
@@ -34,12 +32,6 @@ function initMap() {
 
 function pinPlacer(pinpoints) {
   for (var i = 0; i < pinpoints.length; i++) {
-    // markerArray.push({
-    //   position: {
-    //     lat: pinpoints[i].latitude,
-    //     lng: pinpoints[i].longitude
-    //   }
-    // });
     for (var elem of markerArray) {
       var marker = new google.maps.Marker({
         position: elem.position,
@@ -56,7 +48,6 @@ function printPin(pin) {
   $("#selected_pin").empty();
   const $pin = createPinElement(pin);
   $("#selected_pin").append($pin);
-  // console.log($pin)
 }
 
 //create pin
@@ -91,25 +82,11 @@ const loadPin = id => {
   };
 
   request(requestOptions, function(response) {
-    // console.log(response)
     printPin(response);
   });
 };
 
 $(document).ready(function() {
-  // code snippet to add another pin and viewing it on the map
-  $("#marker_adder").on("click", function() {
-    var newMarker = new google.maps.Marker({
-      position: {
-        lat: $("#latitude").val(),
-        lng: $("#longitude").val()
-      }
-    });
-    markerArray.push(newMarker);
-    newMarker.setMap(map);
-    bounds.extend(newMarker.getPosition());
-    map.fitBounds(bounds);
-  });
   $("#accordion").on("click", ".card", function(event) {
     initMap();
     let myID = this.id;
@@ -171,14 +148,18 @@ $(document).ready(function() {
               .prev()
               .attr("pinid");
             const reqURL = "api/pinpoints/" + pinID + "/delete";
-            $(this)
-              .parent()
-              .parent()
-              .remove();
-            $.ajax({ method: "POST", url: reqURL }).then(results => {
-              $("#map").empty();
-              initMap();
-            });
+
+            $.ajax({ method: "POST", url: reqURL })
+              .done(results => {
+                $("#map").empty();
+                initMap();
+              })
+              .done(results => {
+                $(this)
+                  .parent()
+                  .parent()
+                  .remove();
+              });
           });
 
           $(".row_title").on("click", function(event) {

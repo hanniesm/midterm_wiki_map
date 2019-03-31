@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(
   "/styles",
   sass({
@@ -49,16 +51,15 @@ app.use("/api/favorites", favoritesRoutes(knex));
 
 const user = {
   id: 3,
-  name: "Alex",
-  email: "alex@example.com",
+  name: "Terry",
+  email: "terry@example.com",
   password: "testlogin"
 };
 
-let dummyLogin = false;
-
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  const templateVars = { username: req.cookies["username"] };
+  res.render("index", { templateVars });
 });
 
 app.get("/login", (req, res) => {
@@ -67,15 +68,21 @@ app.get("/login", (req, res) => {
 
 app.post("/login", (req, res) => {
   const inputMail = req.body.email;
+  const username = user.name;
 
   if (inputMail === user.email) {
     if (req.body.password === user.password) {
-      dummyLogin = true;
+      res.cookie("username", username);
       res.redirect("/");
     }
   } else {
-    res.send("Bad request");
+    res.send("User doesn't exist");
   }
+});
+
+app.post("/logout", (req, res) => {
+  res.clearCookie("username");
+  res.redirect("/");
 });
 
 app.listen(PORT, () => {

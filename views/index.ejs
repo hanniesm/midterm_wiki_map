@@ -32,28 +32,29 @@
   <body>
     <header>
       <h1>MiMap</h1>
-      <!--When have login will dynamically add user_id to id  -->
-      <% if() { %>
-      <form action="/login" method="POST">
-        <input type="email" name="email" placeholder="email">
-        <input type="password" name="password" placeholder="password">
-        <input type="submit">
-      </form>
+      <% if (templateVars.username) { %>
+        <div class="profile" id="3">
+            <p><%= templateVars.username %></p>
+            <div class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle"
+                ><img
+                  id="profile_photo"
+                  src="https://journeypurebowlinggreen.com/wp-content/uploads/2018/05/placeholder-person.jpg"/>
+                <b class="caret"></b
+              ></a>
+              <ul class="dropdown-menu">
+                <li><form action="/logout" method="POST">
+                  <input type="submit" value= "Logout">
+                </form></li>
+              </ul>
+            </div>
+          </div>
       <% } else { %>
-      <div class="profile" id="3">
-        <p>Someone</p>
-        <div class="dropdown">
-          <a href="#" data-toggle="dropdown" class="dropdown-toggle"
-            ><img
-              id="profile_photo"
-              src="https://journeypurebowlinggreen.com/wp-content/uploads/2018/05/placeholder-person.jpg"/>
-            <b class="caret"></b
-          ></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Logout</a></li>
-          </ul>
-        </div>
-      </div>
+        <form action="/login" method="POST">
+          <input type="email" name="email" placeholder="email">
+          <input type="password" name="password" placeholder="password">
+          <input type="submit" value= "Login">
+        </form>    
       <% } %>
     </header>
     <main>

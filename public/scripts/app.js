@@ -114,14 +114,14 @@ $(document).ready(function() {
           initMap();
           markerArray = [];
           labelCounter = 0;
-          labelArray = ["1", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"]
+          labelArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"];
           for (var point of listPinpoints) {
             var newMarker = new google.maps.Marker({
               position: {
                 lat: point.latitude,
                 lng: point.longitude
               },
-              label: labelCounter
+              label: labelArray[labelCounter]
             });
             labelCounter++;
             markerArray.push(newMarker);
@@ -136,7 +136,7 @@ $(document).ready(function() {
                 .append(
                   $("<td>")
                     .addClass("row_title")
-                    .text(`${labelArray[labelCounter]}) ${point.title}`)
+                    .text(`${labelArray[labelCounter -1]}) ${point.title}`)
                     .attr("pinid", point.id),
                   $("<td>").append(
                     $("<button>")

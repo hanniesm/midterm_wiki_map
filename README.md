@@ -33,3 +33,6 @@
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
+
+## Screenshots
+![<iMap](https://github.com/hanniesm/midterm_wiki_map/blob/master/public/docs/MiMap%20screenshot.png)
